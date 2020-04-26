@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "563267264994",
+    "firebase_url": "https://placementor-93bfc.firebaseio.com",
+    "project_id": "placementor-93bfc",
+    "storage_bucket": "placementor-93bfc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:563267264994:android:0e22871f5ef9b0860819bb",
+        "android_client_info": {
+          "package_name": "com.example.placementor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "563267264994-g5eh0pr4h4omeglkgkevktgo8dle1rgu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.placementor",
+            "certificate_hash": "57ead5cb919285d243fd0c3eb5178dfcacaa62ab"
+          }
+        },
+        {
+          "client_id": "563267264994-r42q3oa2c5oot5lb569gr1gks633f1k7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPWBuuufN6hV2GHS3FnZQ6eG7sTwq6M-o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "563267264994-r42q3oa2c5oot5lb569gr1gks633f1k7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
