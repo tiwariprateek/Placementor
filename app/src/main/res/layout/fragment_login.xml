@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.example.placementor.LoginViewModel" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgcolor"
     tools:context=".LoginFragment">
+
 
 
     <ImageView
@@ -56,6 +63,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
+        android:text="@={viewmodel.email}"
         android:paddingLeft="4dp"
         android:gravity="center_vertical"
         android:drawableLeft="@drawable/ic_email_black_24dp"
@@ -76,6 +84,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
+        android:text="@={viewmodel.password}"
         android:paddingLeft="4dp"
         android:drawablePadding="4dp"
         android:drawableLeft="@drawable/ic_lock_black_24dp"
@@ -116,6 +125,7 @@
         app:layout_constraintTop_toTopOf="@+id/radioButton" />
 
     <Button
+        android:onClick="@{()->viewmodel.firebaseLogin()}"
         android:id="@+id/signup_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -147,3 +157,4 @@
         app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
