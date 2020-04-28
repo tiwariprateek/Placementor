@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgcolor"
+    tools:context=".AcademicFragment">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/latestlogo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="Academic information"
+        android:textAlignment="center"
+        android:textColor="@color/mygrey"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <EditText
+        android:id="@+id/academic_name"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        android:background="@color/white"
+        android:paddingStart="4dp"
+        android:fontFamily="@font/roboto"
+        />
+
+    <EditText
+        android:id="@+id/academic_enroll"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Enrollment Number"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/academic_name"
+        app:layout_constraintStart_toStartOf="@+id/academic_name"
+        app:layout_constraintTop_toBottomOf="@+id/academic_name"
+        android:background="@color/white"
+        android:paddingStart="4dp"
+        android:fontFamily="@font/roboto"
+        />
+
+    <EditText
+        android:id="@+id/academic_course"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Course"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/academic_enroll"
+        app:layout_constraintStart_toStartOf="@+id/academic_enroll"
+        app:layout_constraintTop_toBottomOf="@+id/academic_enroll"
+        android:background="@color/white"
+        android:paddingStart="4dp"
+        android:fontFamily="@font/roboto"/>
+
+    <EditText
+        android:id="@+id/academic_backlog"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Backlogs"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/academic_course"
+        app:layout_constraintStart_toStartOf="@+id/academic_course"
+        app:layout_constraintTop_toBottomOf="@+id/academic_course"
+        android:background="@color/white"
+        android:paddingStart="4dp"
+        android:fontFamily="@font/roboto"/>
+
+    <EditText
+        android:id="@+id/academic_yop"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Year of passing"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/academic_backlog"
+        app:layout_constraintStart_toStartOf="@+id/academic_backlog"
+        app:layout_constraintTop_toBottomOf="@+id/academic_backlog"
+        android:background="@color/white"
+        android:paddingStart="4dp"
+        android:fontFamily="@font/roboto"/>
+
+    <Button
+        android:id="@+id/academic_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@color/myblue"
+        android:fontFamily="@font/roboto"
+        android:text="Next"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/academic_yop"
+        app:layout_constraintStart_toStartOf="@+id/academic_yop"
+        app:layout_constraintTop_toBottomOf="@+id/academic_yop"
+        app:layout_constraintVertical_bias="0.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>

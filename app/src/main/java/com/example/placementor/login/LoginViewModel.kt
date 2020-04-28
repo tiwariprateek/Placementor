@@ -1,8 +1,7 @@
-package com.example.placementor
+package com.example.placementor.login
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
+import com.example.placementor.UserRepository
 
 
 class LoginViewModel(private val repository: UserRepository):ViewModel() {
@@ -19,7 +18,7 @@ class LoginViewModel(private val repository: UserRepository):ViewModel() {
 //        firebase.signInWithEmailAndPassword(email!!,password!!)
 //            .addOnCompleteListener {task ->
 //                if(task.isSuccessful){
-//                    Log.d("ViewModel","Login Sucess")
+//                    Log.d("ViewModel","com.example.placementor.Login Sucess")
 //                }
 //                else{
 //                    Log.d("ViewModel","The error message is ${task.exception}")

@@ -1,17 +1,18 @@
-package com.example.placementor
+package com.example.placementor.login
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import com.example.placementor.FirebaseSource
+import com.example.placementor.R
+import com.example.placementor.UserRepository
 import com.example.placementor.databinding.FragmentLoginBinding
 
 /**
@@ -20,25 +21,34 @@ import com.example.placementor.databinding.FragmentLoginBinding
 class LoginFragment : Fragment() {
     var navController:NavController?=null
     private lateinit var binding:FragmentLoginBinding
-    private lateinit var viewModel:LoginViewModel
-    private lateinit var factory:LoginViewModelFactory
+    private lateinit var viewModel: LoginViewModel
+    private lateinit var factory: LoginViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        factory= LoginViewModelFactory(UserRepository(FirebaseSource()))
+        factory= LoginViewModelFactory(
+            UserRepository(FirebaseSource())
+        )
         binding =
-            DataBindingUtil.inflate(inflater,R.layout.fragment_login,container,false)
+            DataBindingUtil.inflate(inflater,
+                R.layout.fragment_login,container,false)
         viewModel=ViewModelProvider(this,factory).get(LoginViewModel::class.java)
         binding.viewmodel=viewModel
         binding.setLifecycleOwner(this)
         binding.textView5.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.signUpFragment,null)
+            Navigation.createNavigateOnClickListener(R.id.signUpFragment)
         )
+//        val action = LoginFragmentDirections.actionLoginFragmentToSignUpFragment()
+//        findNavController().navigate(action)
         // Inflate the layout for this fragment
         return binding.root
 
+    }
+    fun navigate(){
+        val action = LoginFragmentDirections.actionLoginFragmentToSignUpFragment()
+        findNavController().navigate(action)
     }
 
 

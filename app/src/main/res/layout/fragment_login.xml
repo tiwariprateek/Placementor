@@ -5,13 +5,13 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.example.placementor.LoginViewModel" />
+            type="com.example.placementor.login.LoginViewModel" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgcolor"
-    tools:context=".LoginFragment">
+    tools:context=".login.LoginFragment">
 
 
 
