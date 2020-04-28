@@ -125,7 +125,7 @@
         app:layout_constraintTop_toTopOf="@+id/radioButton" />
 
     <Button
-        android:onClick="@{()->viewmodel.firebaseLogin()}"
+        android:onClick="@{()->viewmodel.login()}"
         android:id="@+id/signup_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
