@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/academicFragment"
-        android:name="com.example.placementor.AcademicFragment"
+        android:name="com.example.placementor.academic.AcademicFragment"
         android:label="fragment_academic"
         tools:layout="@layout/fragment_academic" >
         <action
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/educationFragment"
-        android:name="com.example.placementor.EducationFragment"
+        android:name="com.example.placementor.education.EducationFragment"
         android:label="fragment_education"
         tools:layout="@layout/fragment_education" >
         <action
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/uploadFragment"
-        android:name="com.example.placementor.UploadFragment"
+        android:name="com.example.placementor.upload.UploadFragment"
         android:label="fragment_upload"
         tools:layout="@layout/fragment_upload" />
 </navigation>

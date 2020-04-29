@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import com.example.placementor.*
 import com.example.placementor.databinding.FragmentSignUpBinding
 
@@ -34,18 +35,35 @@ class SignUpFragment : Fragment() {
 
         val viewModel=ViewModelProvider(this,factory).get(SignUpViewModel::class.java)
         binding.signUpviewmodel=viewModel
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 //        val action=SignUpFragmentDirections.actionSignUpFragmentToLoginFragment()
 //        findNavController().navigate(action)
-        binding.textView5.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.loginFragment,null)
-        )
-        binding.signupButton.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.academicFragment,null)
-
-        )
+//        binding.textView5.setOnClickListener(
+//            Navigation.createNavigateOnClickListener(R.id.loginFragment,null)
+//        )
+//        binding.signupButton.setOnClickListener(
+//            Navigation.createNavigateOnClickListener(R.id.academicFragment,null)
+//
+//        )
         // Inflate the layout for this fragment
         return binding.root
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val options = navOptions {
+            anim {
+                enter = R.anim.slide_in_right
+                exit = R.anim.slide_out_left
+                popEnter = R.anim.slide_in_left
+                popExit = R.anim.slide_out_right
+            }
+        }
+        binding.signupButton.setOnClickListener{
+            findNavController().navigate(R.id.academicFragment,null,options)
+        }
+        binding.textView5.setOnClickListener {
+            findNavController().navigate(R.id.loginFragment, null, options)
+        }
     }
 
 }
