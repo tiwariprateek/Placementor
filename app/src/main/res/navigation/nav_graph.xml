@@ -24,16 +24,20 @@
             app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_signUpFragment_to_academicFragment"
-            app:destination="@id/academicFragment" />
+            app:destination="@id/academicFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+
+
     </fragment>
     <fragment
         android:id="@+id/academicFragment"
         android:name="com.example.placementor.academic.AcademicFragment"
         android:label="fragment_academic"
         tools:layout="@layout/fragment_academic" >
-        <action
-            android:id="@+id/action_academicFragment_to_educationFragment"
-            app:destination="@id/educationFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/educationFragment"
