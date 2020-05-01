@@ -40,8 +40,8 @@ class AcademicFragment : Fragment() {
     fun navigate(){
         val email= arguments?.let { AcademicFragmentArgs.fromBundle(it).email }
         val action=AcademicFragmentDirections
-            .actionAcademicFragmentToEducationFragment(viewModel.name!!,email!!,viewModel.course!!,
-            viewModel.backlogs!!,viewModel.yop!!,viewModel.enrollnumber!!)
+            .actionAcademicFragmentToEducationFragment(viewModel.name!!,viewModel.enrollnumber!!,viewModel.course!!,
+            viewModel.backlogs!!,viewModel.yop!!,email!!)
         NavHostFragment.findNavController(this).navigate(action)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

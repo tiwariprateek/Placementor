@@ -15,6 +15,7 @@ import com.example.placementor.FirebaseSource
 import com.example.placementor.R
 import com.example.placementor.UserRepository
 import com.example.placementor.databinding.FragmentEducationBinding
+import kotlinx.android.synthetic.main.fragment_education.view.*
 
 /**
  * A simple [Fragment] subclass.
@@ -38,13 +39,19 @@ class EducationFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val email= arguments?.let { EducationFragmentArgs.fromBundle(it).email }
         val name= arguments?.let { EducationFragmentArgs.fromBundle(it).name }
         val course= arguments?.let { EducationFragmentArgs.fromBundle(it).course }
         val enrollnumber= arguments?.let { EducationFragmentArgs.fromBundle(it).enrollnumber }
         val backlogs= arguments?.let { EducationFragmentArgs.fromBundle(it).backlogs }
         val yop= arguments?.let { EducationFragmentArgs.fromBundle(it).yop }
+        val email= arguments?.let { EducationFragmentArgs.fromBundle(it).email }
         Log.d("Firestore","Values are $email, $name, $course, $enrollnumber, $backlogs, $yop}")
+        viewModel.name=name
+        viewModel.email=email
+        viewModel.course=course
+        viewModel.enroll=enrollnumber
+        viewModel.backlogs=backlogs
+        viewModel.yop=yop
         val options = navOptions {
             anim {
                 enter = R.anim.slide_in_right
@@ -55,6 +62,15 @@ class EducationFragment : Fragment() {
         }
         val button=view.findViewById<Button>(R.id.academic_button)
         button.setOnClickListener {
+            val graduation=view.academic_name.text.toString()
+            val xii=view.academic_enroll.text.toString()
+            val x=view.academic_course.text.toString()
+
+            viewModel.graduation=graduation
+            viewModel.xii=xii
+            viewModel.x=x
+            Log.d("Firestore","data from EducationFragment is $graduation")
+            viewModel.saveUserData()
             findNavController().navigate(R.id.uploadFragment, null, options)
         }
     }

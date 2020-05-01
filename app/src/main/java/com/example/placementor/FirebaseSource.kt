@@ -35,13 +35,18 @@ class FirebaseSource {
 
     fun getUser()=firebaseAuth.currentUser
 
-    fun saveUser(name:String, enrollnumber:String, course:String, backlogs:String, yop:String) {
+    fun saveUser(name:String,email: String, course:String, enrollnumber:String,
+                 backlogs:String, yop:String, graduation:String,xii:String,x:String) {
         val user = hashMapOf(
             "name" to name,
-            "enrollnumber" to enrollnumber,
+            "email" to email,
             "course" to course,
+            "enrollnumber" to enrollnumber,
             "backlogs" to backlogs,
-            "yop" to yop
+            "yop" to yop,
+            "graduation" to graduation,
+            "XII" to xii,
+            "X" to x
         )
         fireStore.collection("Student Data").document(enrollnumber).set(user)
             .addOnSuccessListener { documentReference ->

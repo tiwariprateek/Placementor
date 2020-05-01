@@ -12,7 +12,5 @@ class AcademicViewModel(private val repository: UserRepository):ViewModel() {
     var yop:String?=null
 
 
-    fun saveUser(){
-        repository.saveUser(name!!,enrollnumber!!,course!!,backlogs!!,yop!!)
-    }
+
 }
