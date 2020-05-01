@@ -42,7 +42,7 @@ class SignUpFragment : Fragment() {
         viewModel.user.observe(viewLifecycleOwner, Observer {currentuser ->
             if (currentuser==true) {
                 Toast.makeText(this.context,"User created successfully",Toast.LENGTH_LONG).show()
-                gameFinished()
+                navigatetoacademic()
                 Log.d("ViewModel", "Value of user here is $currentuser")
             }
         })
@@ -62,8 +62,9 @@ class SignUpFragment : Fragment() {
         // Inflate the layout for this fragment
         return binding.root
     }
-    private fun gameFinished() {
-        val action = SignUpFragmentDirections.actionSignUpFragmentToAcademicFragment()
+    private fun navigatetoacademic() {
+        val action=SignUpFragmentDirections
+            .actionSignUpFragmentToAcademicFragment(viewModel.email?:"email")
         NavHostFragment.findNavController(this).navigate(action)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

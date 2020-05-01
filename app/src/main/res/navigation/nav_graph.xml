@@ -38,6 +38,13 @@
         android:label="fragment_academic"
         tools:layout="@layout/fragment_academic" >
 
+        <argument
+            android:name="email"
+            app:argType="string"
+            android:defaultValue="example@example.com" />
+        <action
+            android:id="@+id/action_academicFragment_to_educationFragment"
+            app:destination="@id/educationFragment" />
     </fragment>
     <fragment
         android:id="@+id/educationFragment"
@@ -47,10 +54,71 @@
         <action
             android:id="@+id/action_educationFragment_to_uploadFragment"
             app:destination="@id/uploadFragment" />
+        <argument
+            android:name="name"
+            app:argType="string"
+            android:defaultValue="name" />
+        <argument
+            android:name="enrollnumber"
+            android:defaultValue="enrollnumber"
+            app:argType="string" />
+        <argument
+            android:name="course"
+            app:argType="string"
+            android:defaultValue="course" />
+        <argument
+            android:name="backlogs"
+            app:argType="string"
+            android:defaultValue="backlogs" />
+        <argument
+            android:name="yop"
+            app:argType="string"
+            android:defaultValue="yop" />
+        <argument
+            android:name="email"
+            app:argType="string"
+            android:defaultValue="email" />
     </fragment>
     <fragment
         android:id="@+id/uploadFragment"
         android:name="com.example.placementor.upload.UploadFragment"
         android:label="fragment_upload"
-        tools:layout="@layout/fragment_upload" />
+        tools:layout="@layout/fragment_upload" >
+        <argument
+            android:name="name"
+            app:argType="string"
+            android:defaultValue="name" />
+        <argument
+            android:name="enrollnumber"
+            android:defaultValue="enrollnumber"
+            app:argType="string" />
+        <argument
+            android:name="course"
+            app:argType="string"
+            android:defaultValue="course" />
+        <argument
+            android:name="backlogs"
+            app:argType="string"
+            android:defaultValue="backlogs" />
+        <argument
+            android:name="yop"
+            app:argType="string"
+            android:defaultValue="yop" />
+        <argument
+            android:name="email"
+            app:argType="string"
+            android:defaultValue="email" />
+        <argument
+            android:name="graduation"
+            app:argType="string"
+            android:defaultValue="100" />
+        <argument
+            android:name="XII"
+            app:argType="string"
+            android:defaultValue="100" />
+        <argument
+            android:name="X"
+            app:argType="string"
+            android:defaultValue="100" />
+    </fragment>
 </navigation>
