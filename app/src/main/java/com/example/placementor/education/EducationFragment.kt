@@ -21,8 +21,8 @@ import kotlinx.android.synthetic.main.fragment_education.view.*
  * A simple [Fragment] subclass.
  */
 class EducationFragment : Fragment() {
-    lateinit var factory: EducationViewModelFactory
-    lateinit var viewModel: EducationViewModel
+    private lateinit var factory: EducationViewModelFactory
+    private lateinit var viewModel: EducationViewModel
     lateinit var binding:FragmentEducationBinding
 
     override fun onCreateView(

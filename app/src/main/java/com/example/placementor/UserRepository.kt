@@ -7,4 +7,5 @@ class UserRepository (private val firebaseSource:FirebaseSource){
     fun saveUser(name:String,email: String,course:String, enrollnumber:String,backlogs:String, yop:String,
                  graduation:String,xii:String,x:String)=
         firebaseSource.saveUser(name,email,course,enrollnumber,backlogs,yop,graduation,xii,x)
+    fun selectImage()=firebaseSource.selectImage()
 }

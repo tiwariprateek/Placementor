@@ -1,13 +1,17 @@
 package com.example.placementor
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 
 class FirebaseSource {
     private val fireStore=Firebase.firestore
     private val firebaseAuth= FirebaseAuth.getInstance()
+    private val firebaseStorage=Firebase.storage
 
 
 
@@ -55,6 +59,11 @@ class FirebaseSource {
             .addOnFailureListener {
                 Log.d("Firestore", "Error in document addition $it")
             }
+    }
+    fun selectImage(){
+        val intent=Intent()
+        intent.setType("image/*")
+        intent.setAction(Intent.ACTION_GET_CONTENT)
     }
 
 }

@@ -53,6 +53,9 @@ dependencies {
     //Firestore Database
     implementation 'com.google.firebase:firebase-firestore-ktx:21.4.3'
     implementation 'com.android.support:multidex:1.0.3'
+    //Firebase Storage
+    implementation 'com.google.firebase:firebase-storage-ktx:19.1.1'
+
 
 
 }
