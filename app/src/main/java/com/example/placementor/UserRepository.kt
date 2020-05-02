@@ -1,5 +1,7 @@
 package com.example.placementor
 
+import android.net.Uri
+
 class UserRepository (private val firebaseSource:FirebaseSource){
     fun getUser()=firebaseSource.getUser()
     fun login(email:String,password:String)=firebaseSource.login(email,password)
@@ -7,5 +9,5 @@ class UserRepository (private val firebaseSource:FirebaseSource){
     fun saveUser(name:String,email: String,course:String, enrollnumber:String,backlogs:String, yop:String,
                  graduation:String,xii:String,x:String)=
         firebaseSource.saveUser(name,email,course,enrollnumber,backlogs,yop,graduation,xii,x)
-    fun selectImage()=firebaseSource.selectImage()
+    fun uploadImage(imageUri: Uri,enrollnumber: String)=firebaseSource.uploadImage(imageUri,enrollnumber)
 }

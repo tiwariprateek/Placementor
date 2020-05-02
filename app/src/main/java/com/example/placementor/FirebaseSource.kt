@@ -1,17 +1,21 @@
 package com.example.placementor
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import java.io.File
 
 class FirebaseSource {
     private val fireStore=Firebase.firestore
     private val firebaseAuth= FirebaseAuth.getInstance()
     private val firebaseStorage=Firebase.storage
+    private val refrence=firebaseStorage.reference
 
 
 
@@ -60,10 +64,23 @@ class FirebaseSource {
                 Log.d("Firestore", "Error in document addition $it")
             }
     }
-    fun selectImage(){
-        val intent=Intent()
-        intent.setType("image/*")
-        intent.setAction(Intent.ACTION_GET_CONTENT)
+    fun uploadImage(imageUri: Uri, enrollnumber: String) {
+        val imageRefrence=refrence.child("images/$enrollnumber")
+        imageRefrence.putFile(imageUri)
+            .addOnCompleteListener{upload ->
+                if (upload.isComplete)
+                    Log.d("Upload","Upload successful")
+                else
+                    Log.d("Upload","Upload Failure ${upload.exception}")
+
+            }
     }
+//    fun selectImage(){
+//        val intent=Intent()
+//        intent.setType("image/*")
+//        intent.setAction(Intent.ACTION_GET_CONTENT)
+//        Activity().startActivityForResult(intent,0)
+//    }
+
 
 }
