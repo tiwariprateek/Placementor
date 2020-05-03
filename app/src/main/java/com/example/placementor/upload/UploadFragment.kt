@@ -29,6 +29,7 @@ import com.example.placementor.MyFileUtil
 import com.example.placementor.R
 import com.example.placementor.UserRepository
 import com.example.placementor.databinding.FragmentUploadBinding
+import com.example.placementor.education.EducationFragmentArgs
 import com.google.firebase.firestore.util.FileUtil
 import com.squareup.picasso.Picasso
 import id.zelory.compressor.Compressor
@@ -80,6 +81,7 @@ class UploadFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         when(requestCode){
             0 -> if (requestCode==0 && resultCode==RESULT_OK && data !=null && data.data!=null ){
+                val enrollnumber= arguments?.let { UploadFragmentArgs.fromBundle(it).enrollnumber }
                 val imageUri=data.data
                 val file=MyFileUtil.from(context,imageUri)
                 CoroutineScope(IO).launch {
@@ -88,7 +90,7 @@ class UploadFragment : Fragment() {
                     }
                     val image=Uri.fromFile(compressedImage)
                     viewModel.imageUri=image
-                    viewModel.enrollnumber="40514202017"
+                    viewModel.enrollnumber=enrollnumber
                     withContext(Main) {
                         Picasso.get().load(image).into(imageView4)
                     }
@@ -97,7 +99,8 @@ class UploadFragment : Fragment() {
             }
             1 ->if (requestCode==1 && resultCode==RESULT_OK && data !=null && data.data!=null){
                 val documentUri=data.data
-                viewModel.enrollnumber="40514202017"
+                val enrollnumber= arguments?.let { UploadFragmentArgs.fromBundle(it).enrollnumber }
+                viewModel.enrollnumber=enrollnumber
                 viewModel.documentUri=documentUri
                 viewModel.uploadCV()
                 val documentString=documentUri.toString()

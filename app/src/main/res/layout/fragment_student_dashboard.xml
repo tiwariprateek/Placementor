@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgcolor"
+    tools:context=".studentdashboard.StudentDashboardFragment">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@android:mipmap/sym_def_app_icon" />
+
+    <TextView
+        android:id="@+id/dashboard_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/roboto"
+        android:text="Prateek Tiwari"
+        android:textColor="@color/mygrey"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/dashboard_enroll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/dashboard_enroll"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="40514202017"
+        android:textColor="@color/mygrey"
+        app:layout_constraintBottom_toTopOf="@+id/dashboard_course"
+        app:layout_constraintEnd_toEndOf="@+id/dashboard_name"
+        app:layout_constraintStart_toStartOf="@+id/dashboard_name"
+        app:layout_constraintTop_toBottomOf="@+id/dashboard_name" />
+
+    <TextView
+        android:id="@+id/dashboard_course"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="BCA VI (M)"
+        android:textColor="@color/mygrey"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/dashboard_enroll"
+        app:layout_constraintStart_toStartOf="@+id/dashboard_enroll"
+        app:layout_constraintTop_toBottomOf="@+id/dashboard_enroll" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/border"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        <ImageView
+            android:paddingLeft="4dp"
+            android:id="@+id/imageView6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/homepercem" />
+
+        <TextView
+            android:paddingLeft="4dp"
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Academics" />
+
+        <TextView
+            android:paddingLeft="4dp"
+            android:id="@+id/dashboard_percentage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="75%" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/border"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:paddingLeft="4dp"
+            android:id="@+id/imageView7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/job" />
+
+        <TextView
+            android:paddingLeft="4dp"
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jobs Applied" />
+
+        <TextView
+            android:paddingLeft="4dp"
+            android:id="@+id/dashboard_jobs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="10" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/border"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <TextView
+            android:paddingLeft="4dp"
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Latest Job"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <TextView
+            android:paddingLeft="4dp"
+            android:id="@+id/textView15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Capgemini"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/mygrey"
+            android:textSize="18sp" />
+
+        <TextView
+            android:paddingLeft="4dp"
+            android:id="@+id/textView20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Technology associate"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/mygrey"
+            />
+
+        <TextView
+            android:paddingLeft="4dp"
+            android:id="@+id/textView16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Eligibility : "
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/mygrey"/>
+
+        <TextView
+            android:layout_marginStart="30dp"
+            android:paddingLeft="4dp"
+            android:id="@+id/textView17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No backlogs"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/mygrey"/>
+
+        <TextView
+            android:layout_marginStart="30dp"
+            android:paddingStart="4dp"
+            android:id="@+id/textView18"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="60%"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/mygrey"/>
+
+        <TextView
+            android:paddingBottom="4dp"
+            android:paddingRight="4dp"
+            android:id="@+id/textView19"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Last Date : 27/05/20"
+            android:textAlignment="viewEnd"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/mygrey"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
