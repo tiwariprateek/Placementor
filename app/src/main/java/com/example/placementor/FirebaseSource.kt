@@ -1,15 +1,14 @@
 package com.example.placementor
 
-import android.app.Activity
-import android.content.Context
+
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import androidx.core.app.ActivityCompat.startActivityForResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import java.io.File
 
 class FirebaseSource {
     private val fireStore=Firebase.firestore
@@ -65,8 +64,8 @@ class FirebaseSource {
             }
     }
     fun uploadImage(imageUri: Uri, enrollnumber: String) {
-        val imageRefrence=refrence.child("images/$enrollnumber")
-        imageRefrence.putFile(imageUri)
+        val imageReference=refrence.child("images/$enrollnumber")
+        imageReference.putFile(imageUri)
             .addOnCompleteListener{upload ->
                 if (upload.isComplete)
                     Log.d("Upload","Upload successful")
@@ -75,12 +74,18 @@ class FirebaseSource {
 
             }
     }
-//    fun selectImage(){
-//        val intent=Intent()
-//        intent.setType("image/*")
-//        intent.setAction(Intent.ACTION_GET_CONTENT)
-//        Activity().startActivityForResult(intent,0)
-//    }
+    fun uploadCV(documentUri:Uri,enrollnumber: String){
+        val documentReference=refrence.child("Resumes/$enrollnumber")
+        documentReference.putFile(documentUri)
+            .addOnCompleteListener { upload ->
+                if (upload.isComplete)
+                    Log.d("Upload","Upload sucessfull")
+                else
+                    Log.d("Upload","Upload Failed due to ${upload.exception}")
+
+            }
+    }
+
 
 
 }
