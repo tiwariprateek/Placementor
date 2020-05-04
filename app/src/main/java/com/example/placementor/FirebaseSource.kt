@@ -42,6 +42,7 @@ class FirebaseSource {
             }
 
     fun getUser()=firebaseAuth.currentUser
+    fun getUid()=firebaseAuth.currentUser?.uid
 
     fun saveUser(name:String,email: String, course:String, enrollnumber:String,
                  backlogs:String, yop:String, graduation:String,xii:String,x:String) {

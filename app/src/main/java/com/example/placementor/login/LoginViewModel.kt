@@ -10,17 +10,24 @@ class LoginViewModel(private val repository: UserRepository):ViewModel() {
 
     var email:String?=null
     var password:String?=null
+    private val _uid=MutableLiveData<String>()
+    val uid:LiveData<String>
+        get() = _uid
     private val _user= MutableLiveData<Boolean>()
     val user: LiveData<Boolean>
         get() = _user
 
     init {
         _user.value=false
+        _uid.value=null
     }
     fun login(){
         repository.login(email!!,password!!)
             .addOnCompleteListener {task ->
-                _user.value = task.isSuccessful
+                if (task.isSuccessful){
+                    _user.value=true
+                    _uid.value=repository.getUid()
+                }
             }
     }
 

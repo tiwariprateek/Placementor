@@ -11,4 +11,5 @@ class UserRepository (private val firebaseSource:FirebaseSource){
         firebaseSource.saveUser(name,email,course,enrollnumber,backlogs,yop,graduation,xii,x)
     fun uploadImage(imageUri: Uri)=firebaseSource.uploadImage(imageUri)
     fun uploadCV(documentUri:Uri)=firebaseSource.uploadCV(documentUri)
+    fun getUid()=firebaseSource.getUid()
 }
