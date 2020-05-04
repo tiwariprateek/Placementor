@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -38,6 +39,10 @@ class LoginFragment : Fragment() {
         viewModel=ViewModelProvider(this,factory).get(LoginViewModel::class.java)
         binding.viewmodel=viewModel
         binding.lifecycleOwner = this
+        viewModel.user.observe(viewLifecycleOwner, Observer { user->
+            if (user)
+                navigate()
+        })
 //        binding.textView5.setOnClickListener(
 //            Navigation.createNavigateOnClickListener(R.id.signUpFragment)
 //        )
@@ -64,7 +69,7 @@ class LoginFragment : Fragment() {
         }
     }
     fun navigate(){
-        val action = LoginFragmentDirections.actionLoginFragmentToSignUpFragment()
+        val action = LoginFragmentDirections.actionLoginFragmentToStudentDashboardFragment()
         findNavController().navigate(action)
     }
 
