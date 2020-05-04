@@ -1,10 +1,12 @@
 package com.example.placementor.studentdashboard
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.placementor.FirebaseSource
 
 import com.example.placementor.R
 
@@ -17,6 +19,7 @@ class StudentDashboardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("Login","User id is ${FirebaseSource().getUid()}")
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_student_dashboard, container, false)
     }
