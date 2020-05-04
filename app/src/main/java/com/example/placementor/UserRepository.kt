@@ -12,4 +12,10 @@ class UserRepository (private val firebaseSource:FirebaseSource){
     fun uploadImage(imageUri: Uri)=firebaseSource.uploadImage(imageUri)
     fun uploadCV(documentUri:Uri)=firebaseSource.uploadCV(documentUri)
     fun getUid()=firebaseSource.getUid()
+    fun getDocument(userid:String)=firebaseSource.getdocument(userid)
+    val document=firebaseSource.document
+    val name=firebaseSource.name
+    val enrollnumber=firebaseSource.enroll
+    val academics=firebaseSource.academics
+    val course=firebaseSource.course
 }

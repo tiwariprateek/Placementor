@@ -5,7 +5,10 @@ import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -16,6 +19,11 @@ class FirebaseSource {
     private val firebaseStorage=Firebase.storage
     private val refrence=firebaseStorage.reference
     private val uid=firebaseAuth.currentUser?.uid
+    val document=MutableLiveData<DocumentSnapshot>()
+    val name=MutableLiveData<String>()
+    val enroll=MutableLiveData<String>()
+    val course=MutableLiveData<String>()
+    val academics=MutableLiveData<String>()
 
 
 
@@ -87,8 +95,25 @@ class FirebaseSource {
 
             }
     }
-    fun getName(){
+    fun getdocument(userid:String){
+        val ref=fireStore.collection("Student Data").document("$userid")
+        ref.get()
+            .addOnSuccessListener {documentSnapshot ->
+                if (documentSnapshot!=null){
+                    document.value=documentSnapshot
+                    name.value=documentSnapshot.getString("name").toString()
+                    enroll.value=documentSnapshot.getString("enrollnumber").toString()
+                    course.value=documentSnapshot.getString("course").toString()
+                    academics.value=documentSnapshot.getString("graduation").toString()
+                    Log.d("Login","Login data is ${documentSnapshot}")
+                }
+
+            }
+            .addOnFailureListener { exception ->
+                Log.d("Login","Failure to get document $exception")
+            }
     }
+
 
 
 
