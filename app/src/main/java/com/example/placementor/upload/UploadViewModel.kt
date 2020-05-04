@@ -9,13 +9,12 @@ import com.example.placementor.UserRepository
 class UploadViewModel(private val userRepository: UserRepository,
                         private val application: Application):ViewModel() {
     var imageUri:Uri?=null
-    var enrollnumber:String?=null
     var documentUri:Uri?=null
     fun uploadImage(){
-        userRepository.uploadImage(imageUri!!,enrollnumber!!)
+        userRepository.uploadImage(imageUri!!)
     }
     fun uploadCV(){
-        userRepository.uploadCV(documentUri!!,enrollnumber!!)
+        userRepository.uploadCV(documentUri!!)
     }
 
 }

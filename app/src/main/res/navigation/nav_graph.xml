@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/studentDashboardFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_studentDashboardFragment"
+            app:destination="@id/studentDashboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -120,16 +123,15 @@
             android:name="X"
             app:argType="string"
             android:defaultValue="100" />
+        <action
+            android:id="@+id/action_uploadFragment_to_studentDashboardFragment"
+            app:destination="@id/studentDashboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/studentDashboardFragment"
         android:name="com.example.placementor.studentdashboard.StudentDashboardFragment"
         android:label="fragment_student_dashboard"
-        tools:layout="@layout/fragment_student_dashboard" >
-        <action
-            android:id="@+id/action_studentDashboardFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_student_dashboard" />
     <fragment
         android:id="@+id/jobsFragment"
         android:name="com.example.placementor.jobs.JobsFragment"

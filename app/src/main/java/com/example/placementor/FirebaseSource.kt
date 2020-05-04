@@ -15,6 +15,7 @@ class FirebaseSource {
     private val firebaseAuth= FirebaseAuth.getInstance()
     private val firebaseStorage=Firebase.storage
     private val refrence=firebaseStorage.reference
+    private val uid=firebaseAuth.currentUser?.uid
 
 
 
@@ -25,7 +26,7 @@ class FirebaseSource {
                     Log.d("ViewModel","Success !!")
                 }
                 else{
-                    Log.d("ViewModel","Failure !!")
+                    Log.d("ViewModel","Failure !!${task.exception}")
                 }
             }
 
@@ -55,7 +56,7 @@ class FirebaseSource {
             "XII" to xii,
             "X" to x
         )
-        fireStore.collection("Student Data").document(enrollnumber).set(user)
+        fireStore.collection("Student Data").document(uid!!).set(user)
             .addOnSuccessListener { documentReference ->
                 Log.d("Firestore", "DocumentSnapshot added")
             }
@@ -63,8 +64,8 @@ class FirebaseSource {
                 Log.d("Firestore", "Error in document addition $it")
             }
     }
-    fun uploadImage(imageUri: Uri, enrollnumber: String) {
-        val imageReference=refrence.child("images/$enrollnumber")
+    fun uploadImage(imageUri: Uri) {
+        val imageReference=refrence.child("images/$uid")
         imageReference.putFile(imageUri)
             .addOnCompleteListener{upload ->
                 if (upload.isComplete)
@@ -74,8 +75,8 @@ class FirebaseSource {
 
             }
     }
-    fun uploadCV(documentUri:Uri,enrollnumber: String){
-        val documentReference=refrence.child("Resumes/$enrollnumber")
+    fun uploadCV(documentUri:Uri){
+        val documentReference=refrence.child("Resumes/$uid")
         documentReference.putFile(documentUri)
             .addOnCompleteListener { upload ->
                 if (upload.isComplete)
@@ -84,6 +85,8 @@ class FirebaseSource {
                     Log.d("Upload","Upload Failed due to ${upload.exception}")
 
             }
+    }
+    fun getName(){
     }
 
 
