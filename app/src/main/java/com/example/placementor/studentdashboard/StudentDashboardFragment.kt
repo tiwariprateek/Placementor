@@ -37,11 +37,10 @@ class StudentDashboardFragment : Fragment() {
         binding=
             DataBindingUtil.inflate(inflater,R.layout.fragment_student_dashboard,container,false)
         factory= DashboardViewModelFactory(UserRepository(FirebaseSource()))
-        viewModel=ViewModelProvider(this,factory).get(DashboardViewModel::class.java)
+        viewModel=ViewModelProvider(requireActivity(),factory).get(DashboardViewModel::class.java)
         viewModel.imageURL.observe(viewLifecycleOwner, Observer {imageUri->
             Log.d("Login","Value of students are ${viewModel.getStudent()}")
             if (imageView.drawable==null)
-
                 viewModel.setImage(imageView)
             else
                 Log.d("Login","ImageView was not null")
@@ -55,6 +54,7 @@ class StudentDashboardFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        Log.d("Fragment","Activity Created")
 
     }
 

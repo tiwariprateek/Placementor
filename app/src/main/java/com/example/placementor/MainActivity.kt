@@ -1,5 +1,8 @@
 package com.example.placementor
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +17,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +25,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
+            val channel=NotificationChannel("MyNotification","Mynotifications",NotificationManager.IMPORTANCE_DEFAULT)
+            val manager:NotificationManager?=getSystemService(NotificationManager::class.java)
+            manager?.createNotificationChannel(channel)
+        }
+        FirebaseMessaging.getInstance().subscribeToTopic("Job")
+            .addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    val msg = "Sucessful"
+                }
+                Log.d("MainActivity", "Success")
+            }
         val host: NavHostFragment = supportFragmentManager
             .findFragmentById(R.id.fragment) as NavHostFragment? ?: return
 
