@@ -129,7 +129,11 @@
             android:defaultValue="100" />
         <action
             android:id="@+id/action_uploadFragment_to_studentDashboardFragment"
-            app:destination="@id/studentDashboardFragment" />
+            app:destination="@id/studentDashboardFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/studentDashboardFragment"

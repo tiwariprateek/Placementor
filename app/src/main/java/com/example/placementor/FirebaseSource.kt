@@ -12,10 +12,14 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import java.net.URL
 
 class FirebaseSource {
+    private val firebaseAuth: FirebaseAuth by lazy {
+        FirebaseAuth.getInstance()
+    }
     private val fireStore=Firebase.firestore
-    private val firebaseAuth= FirebaseAuth.getInstance()
+    //private val firebaseAuth= FirebaseAuth.getInstance()
     private val firebaseStorage=Firebase.storage
     private val refrence=firebaseStorage.reference
     private val uid=firebaseAuth.currentUser?.uid
@@ -24,6 +28,9 @@ class FirebaseSource {
     val enroll=MutableLiveData<String>()
     val course=MutableLiveData<String>()
     val academics=MutableLiveData<String>()
+    val imageURL=MutableLiveData<String>()
+
+
 
 
 
@@ -53,7 +60,7 @@ class FirebaseSource {
     fun getUid()=firebaseAuth.currentUser?.uid
 
     fun saveUser(name:String,email: String, course:String, enrollnumber:String,
-                 backlogs:String, yop:String, graduation:String,xii:String,x:String) {
+                 backlogs:String, yop:String, graduation:String,xii:String,x:String,imageUri: String) {
         val user = hashMapOf(
             "name" to name,
             "email" to email,
@@ -63,7 +70,8 @@ class FirebaseSource {
             "yop" to yop,
             "graduation" to graduation,
             "XII" to xii,
-            "X" to x
+            "X" to x,
+            "ImageURL" to imageUri
         )
         fireStore.collection("Student Data").document(uid!!).set(user)
             .addOnSuccessListener { documentReference ->
@@ -74,14 +82,15 @@ class FirebaseSource {
             }
     }
     fun uploadImage(imageUri: Uri) {
+        var imageUrl: String?
         val imageReference=refrence.child("images/$uid")
         imageReference.putFile(imageUri)
-            .addOnCompleteListener{upload ->
-                if (upload.isComplete)
-                    Log.d("Upload","Upload successful")
-                else
-                    Log.d("Upload","Upload Failure ${upload.exception}")
-
+            .addOnSuccessListener{upload ->
+                    imageReference.downloadUrl.addOnSuccessListener {
+                        imageUrl=it.toString()
+                        fireStore.collection("Student Data").document(uid!!).update("ImageURL",imageUrl)
+                    }
+                    Log.d("Upload", "Upload successful")
             }
     }
     fun uploadCV(documentUri:Uri){
@@ -95,11 +104,12 @@ class FirebaseSource {
 
             }
     }
-    fun getdocument(userid:String){
-        val ref=fireStore.collection("Student Data").document("$userid")
-        ref.get()
+
+    fun getdocument(userid:String)=
+        fireStore.collection("Student Data").document(userid).get()
             .addOnSuccessListener {documentSnapshot ->
                 if (documentSnapshot!=null){
+                    imageURL.value=documentSnapshot.getString("ImageURL").toString()
                     document.value=documentSnapshot
                     name.value=documentSnapshot.getString("name").toString()
                     enroll.value=documentSnapshot.getString("enrollnumber").toString()
@@ -112,7 +122,10 @@ class FirebaseSource {
             .addOnFailureListener { exception ->
                 Log.d("Login","Failure to get document $exception")
             }
-    }
+
+
+
+    
 
 
 

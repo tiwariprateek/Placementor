@@ -1,7 +1,6 @@
 package com.example.placementor.academic
 
 import androidx.lifecycle.ViewModel
-import com.example.placementor.User
 import com.example.placementor.UserRepository
 
 class AcademicViewModel(private val repository: UserRepository):ViewModel() {

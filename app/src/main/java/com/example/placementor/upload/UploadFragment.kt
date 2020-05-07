@@ -24,6 +24,7 @@ import androidx.core.net.toFile
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
+import androidx.navigation.fragment.findNavController
 import com.example.placementor.FirebaseSource
 import com.example.placementor.MyFileUtil
 import com.example.placementor.R
@@ -65,6 +66,13 @@ class UploadFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        button.setOnClickListener {
+            viewModel.uploadImage()
+            viewModel.uploadCV()
+            val action = UploadFragmentDirections.actionUploadFragmentToStudentDashboardFragment()
+            findNavController().navigate(action)
+
+        }
         imageView5.setOnClickListener {
             val intent=Intent().setType("application/pdf")
                 .setAction(Intent.ACTION_GET_CONTENT)
@@ -92,14 +100,13 @@ class UploadFragment : Fragment() {
                     withContext(Main) {
                         Picasso.get().load(image).into(imageView4)
                     }
-                    viewModel.uploadImage()
+                    //viewModel.uploadImage()
                 }
             }
             1 ->if (requestCode==1 && resultCode==RESULT_OK && data !=null && data.data!=null){
                 val documentUri=data.data
-                val enrollnumber= arguments?.let { UploadFragmentArgs.fromBundle(it).enrollnumber }
                 viewModel.documentUri=documentUri
-                viewModel.uploadCV()
+                //viewModel.uploadCV()
                 val documentString=documentUri.toString()
                 if (documentString.startsWith("content://")){
                     try {

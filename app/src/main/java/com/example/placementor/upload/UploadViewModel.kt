@@ -8,6 +8,7 @@ import com.example.placementor.UserRepository
 
 class UploadViewModel(private val userRepository: UserRepository,
                         private val application: Application):ViewModel() {
+    var imageref:String?=null
     var imageUri:Uri?=null
     var documentUri:Uri?=null
     fun uploadImage(){

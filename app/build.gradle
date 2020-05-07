@@ -4,10 +4,21 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
 //Navigation
 apply plugin: "androidx.navigation.safeargs.kotlin"
+//Binding Adapter
+apply plugin: 'kotlin-kapt'
 
 android {
+    android.defaultConfig.vectorDrawables.useSupportLibrary = true
     dataBinding {
         enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
