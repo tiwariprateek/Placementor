@@ -10,44 +10,50 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.example.placementor.*
 import com.example.placementor.databinding.FragmentSignUpBinding
+import com.example.placementor.SharedViewModelFactory
+import com.example.placementor.SignUpSharedViewModel
 
 /**
  * A simple [Fragment] subclass.
  */
 class SignUpFragment : Fragment() {
-    lateinit var factory: SignUpViewModelFactory
+    //lateinit var factory: SignUpViewModelFactory
     lateinit var binding:FragmentSignUpBinding
-    lateinit var viewModel:SignUpViewModel
+    //lateinit var viewModel:SignUpViewModel
+    lateinit var sharedViewModel: SignUpSharedViewModel
+    lateinit var sharedViewModelFactory: SharedViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        factory= SignUpViewModelFactory(
-            UserRepository(FirebaseSource())
-        )
+//        factory= SignUpViewModelFactory(
+//            UserRepository(FirebaseSource())
+//        )
+        sharedViewModelFactory=
+            SharedViewModelFactory(
+                UserRepository(FirebaseSource())
+            )
         binding=
             DataBindingUtil.inflate(inflater,
                 R.layout.fragment_sign_up,container,false)
-
-        viewModel=ViewModelProvider(this,factory).get(SignUpViewModel::class.java)
-        binding.signUpviewmodel=viewModel
+        //viewModel=ViewModelProvider(requireActivity(),factory).get(SignUpViewModel::class.java)
+        sharedViewModel=ViewModelProvider(requireActivity(),sharedViewModelFactory).get(
+            SignUpSharedViewModel::class.java)
+        binding.signUpviewmodel=sharedViewModel
         binding.lifecycleOwner = this
-        viewModel.user.observe(viewLifecycleOwner, Observer {currentuser ->
+        sharedViewModel.user.observe(viewLifecycleOwner, Observer {currentuser ->
             if (currentuser==true) {
                 Toast.makeText(this.context,"User created successfully",Toast.LENGTH_LONG).show()
                 navigatetoacademic()
                 Log.d("ViewModel", "Value of user here is $currentuser")
             }
         })
-
-
 
 
 //        val action=SignUpFragmentDirections.actionSignUpFragmentToLoginFragment()
@@ -64,7 +70,7 @@ class SignUpFragment : Fragment() {
     }
     private fun navigatetoacademic() {
         val action=SignUpFragmentDirections
-            .actionSignUpFragmentToAcademicFragment(viewModel.email?:"email")
+            .actionSignUpFragmentToAcademicFragment()
         NavHostFragment.findNavController(this).navigate(action)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -92,7 +98,6 @@ class SignUpFragment : Fragment() {
             }
         }
         binding.signupButton.setOnClickListener{
-            val email=binding.signupEmail.text.toString()
             findNavController().navigate(R.id.academicFragment,null,options)
         }
     }

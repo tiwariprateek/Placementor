@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.placementor.R
-import com.example.placementor.Resources
 import kotlinx.android.synthetic.main.resources_row.view.*
 
 class ResourceAdapter(private val context: Context, private val resources: List<Resources>)

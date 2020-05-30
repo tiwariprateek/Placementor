@@ -5,7 +5,7 @@
     <data>
         <variable
             name="educationviewmodel"
-            type="com.example.placementor.education.EducationViewModel" />
+            type="com.example.placementor.SignUpSharedViewModel" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,6 +39,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <EditText
+        android:text="@={educationviewmodel.graduation}"
         android:id="@+id/academic_name"
         android:layout_width="0dp"
         android:layout_height="60dp"
@@ -56,6 +57,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <EditText
+        android:text="@={educationviewmodel.xii}"
         android:id="@+id/academic_enroll"
         android:layout_width="0dp"
         android:layout_height="60dp"
@@ -71,6 +73,7 @@
         app:layout_constraintTop_toBottomOf="@+id/academic_name" />
 
     <EditText
+        android:text="@={educationviewmodel.x}"
         android:id="@+id/academic_course"
         android:layout_width="0dp"
         android:layout_height="60dp"
@@ -86,6 +89,7 @@
         app:layout_constraintTop_toBottomOf="@+id/academic_enroll" />
 
     <Button
+        android:onClick="@{() -> educationviewmodel.saveUserData()}"
         android:id="@+id/academic_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

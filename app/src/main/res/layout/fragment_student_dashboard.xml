@@ -6,7 +6,7 @@
     <data>
         <variable
             name="dashboardviewmodel"
-            type="com.example.placementor.studentdashboard.DashboardViewModel" />
+            type="com.example.placementor.StudentSharedViewModel" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -16,6 +16,7 @@
 
 
     <de.hdodenhof.circleimageview.CircleImageView
+        app:imagUrl="@{dashboardviewmodel.imageURL}"
         android:id="@+id/imageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -25,13 +26,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:text="@{String.valueOf(dashboardviewmodel.name)}"
         android:id="@+id/dashboard_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/roboto"
-        android:text="@{String.valueOf(dashboardviewmodel.name)}"
         android:textColor="@color/mygrey"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -42,11 +43,11 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
+        android:text="@{String.valueOf(dashboardviewmodel.enroll)}"
         android:id="@+id/dashboard_enroll"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto"
-        android:text="@{String.valueOf(dashboardviewmodel.enroll)}"
         android:textColor="@color/mygrey"
         app:layout_constraintBottom_toTopOf="@+id/dashboard_course"
         app:layout_constraintEnd_toEndOf="@+id/dashboard_name"
@@ -54,11 +55,11 @@
         app:layout_constraintTop_toBottomOf="@+id/dashboard_name" />
 
     <TextView
+        android:text="@{String.valueOf(dashboardviewmodel.course)}"
         android:id="@+id/dashboard_course"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto"
-        android:text="@{String.valueOf(dashboardviewmodel.course)}"
         android:textColor="@color/mygrey"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/dashboard_enroll"
@@ -93,11 +94,11 @@
             android:text="Academics" />
 
         <TextView
+            android:text="@{String.valueOf(dashboardviewmodel.academics)}"
             android:paddingLeft="4dp"
             android:id="@+id/dashboard_percentage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(dashboardviewmodel.academics)}"
             />
     </LinearLayout>
 
@@ -215,6 +216,16 @@
             android:fontFamily="@font/roboto"
             android:textColor="@color/mygrey"/>
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

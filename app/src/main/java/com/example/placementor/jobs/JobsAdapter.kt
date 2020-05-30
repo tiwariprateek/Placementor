@@ -5,11 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.placementor.Jobs
 import com.example.placementor.R
 import kotlinx.android.synthetic.main.job_item.view.*
 
-class JobsAdapter(private val context: Context, private val Jobs: List<Jobs>)
+class JobsAdapter(private val context: Context, private val Jobs: List<Jobs>,val onClickListener: OnClickListener)
     : RecyclerView.Adapter<JobsAdapter.ViewHolder>() {
 
     // Usually involves inflating a layout from XML and returning the holder - THIS IS EXPENSIVE
@@ -23,6 +22,9 @@ class JobsAdapter(private val context: Context, private val Jobs: List<Jobs>)
     // Involves populating data into the item through holder - NOT expensive
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val contact = Jobs[position]
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(contact)
+        }
         holder.bind(contact)
     }
 
@@ -40,5 +42,8 @@ class JobsAdapter(private val context: Context, private val Jobs: List<Jobs>)
 //            itemView.tvAge.text = "Age: ${contact.age}"
 //            Glide.with(context).load(contact.imageUrl).into(itemView.ivProfile)
         }
+    }
+    class OnClickListener(val clickListener: (jobs:Jobs) -> Unit) {
+        fun onClick(jobs:Jobs) = clickListener(jobs)
     }
 }

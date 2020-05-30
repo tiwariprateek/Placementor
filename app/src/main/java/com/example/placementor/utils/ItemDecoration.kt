@@ -1,4 +1,4 @@
-package com.example.placementor
+package com.example.placementor.utils
 
 import android.graphics.Rect
 import android.view.View

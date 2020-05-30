@@ -1,4 +1,4 @@
-package com.example.placementor;
+package com.example.placementor.upload;
 
 import android.content.Context;
 import android.database.Cursor;

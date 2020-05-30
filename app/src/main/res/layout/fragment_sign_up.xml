@@ -5,7 +5,7 @@
     <data>
         <variable
             name="signUpviewmodel"
-            type="com.example.placementor.signup.SignUpViewModel" />
+            type="com.example.placementor.SignUpSharedViewModel" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"

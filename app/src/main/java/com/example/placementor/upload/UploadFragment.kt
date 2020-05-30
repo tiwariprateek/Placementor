@@ -1,37 +1,23 @@
 package com.example.placementor.upload
 
 import android.app.Activity.RESULT_OK
-import android.app.Application
-import android.content.ContentResolver
 import android.content.Intent
 import android.database.Cursor
-import android.graphics.Bitmap
-import android.graphics.ImageDecoder
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.core.net.toFile
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStore
 import androidx.navigation.fragment.findNavController
-import com.example.placementor.FirebaseSource
-import com.example.placementor.MyFileUtil
-import com.example.placementor.R
-import com.example.placementor.UserRepository
+import com.example.placementor.*
 import com.example.placementor.databinding.FragmentUploadBinding
-import com.example.placementor.education.EducationFragmentArgs
-import com.google.firebase.firestore.util.FileUtil
+import com.example.placementor.SharedViewModelFactory
+import com.example.placementor.SignUpSharedViewModel
 import com.squareup.picasso.Picasso
 import id.zelory.compressor.Compressor
 import id.zelory.compressor.constraint.quality
@@ -42,15 +28,15 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
-import java.io.FileOutputStream
-import java.util.*
 
 /**
  * A simple [Fragment] subclass.
  */
 class UploadFragment : Fragment() {
-    lateinit var viewModel: UploadViewModel
-    lateinit var factory: UploadViewModelFactory
+//    lateinit var viewModel: UploadViewModel
+    private lateinit var sharedViewModel: SignUpSharedViewModel
+    private lateinit var sharedFactory: SharedViewModelFactory
+//    lateinit var factory: UploadViewModelFactory
     lateinit var binding: FragmentUploadBinding
     lateinit var compressedImage:File
     lateinit var cursor: Cursor
@@ -58,20 +44,35 @@ class UploadFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        factory= UploadViewModelFactory(UserRepository(FirebaseSource()), Application())
-        viewModel=ViewModelProvider(this,factory).get(UploadViewModel::class.java)
+        sharedFactory=
+            SharedViewModelFactory(
+                UserRepository(FirebaseSource())
+            )
+        //factory= UploadViewModelFactory(UserRepository(FirebaseSource()), Application())
+        //viewModel=ViewModelProvider(this,factory).get(UploadViewModel::class.java)
+        sharedViewModel=ViewModelProvider(requireActivity(),sharedFactory).get(SignUpSharedViewModel::class.java)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_upload, container, false)
+        binding.progressBar2.visibility=View.GONE
+        sharedViewModel.imageStatus.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            if (it!=null) {
+                sharedViewModel.documentStatus.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                    if (it!=null) {
+                        binding.progressBar2.visibility=View.GONE
+                        navigateToDashboard()
+                    }
+                })
+            }
+        })
+        binding.uploadviewmodel=sharedViewModel
         binding.lifecycleOwner=this
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         button.setOnClickListener {
-            viewModel.uploadImage()
-            viewModel.uploadCV()
-            val action = UploadFragmentDirections.actionUploadFragmentToStudentDashboardFragment()
-            findNavController().navigate(action)
-
+            binding.progressBar2.visibility=View.VISIBLE
+            sharedViewModel.uploadImage()
+            sharedViewModel.uploadCV()
         }
         imageView5.setOnClickListener {
             val intent=Intent().setType("application/pdf")
@@ -90,23 +91,22 @@ class UploadFragment : Fragment() {
         when(requestCode){
             0 -> if (requestCode==0 && resultCode==RESULT_OK && data !=null && data.data!=null ){
                 val imageUri=data.data
-                val file=MyFileUtil.from(context,imageUri)
+                val file= MyFileUtil.from(context,imageUri)
                 CoroutineScope(IO).launch {
                     compressedImage = Compressor.compress(requireContext(), file){
-                        quality(50)
+                        quality(10)
                     }
                     val image=Uri.fromFile(compressedImage)
-                    viewModel.imageUri=image
+                    sharedViewModel.imageUri=image
+                    Log.d("Image","Image Uri is $image")
                     withContext(Main) {
                         Picasso.get().load(image).into(imageView4)
                     }
-                    //viewModel.uploadImage()
                 }
             }
             1 ->if (requestCode==1 && resultCode==RESULT_OK && data !=null && data.data!=null){
                 val documentUri=data.data
-                viewModel.documentUri=documentUri
-                //viewModel.uploadCV()
+                sharedViewModel.documentUri=documentUri
                 val documentString=documentUri.toString()
                 if (documentString.startsWith("content://")){
                     try {
@@ -123,5 +123,10 @@ class UploadFragment : Fragment() {
                 }
             }
         }
+    }
+    fun navigateToDashboard(){
+        val action =
+            UploadFragmentDirections.actionUploadFragmentToStudentDashboardFragment()
+        findNavController().navigate(action)
     }
 }

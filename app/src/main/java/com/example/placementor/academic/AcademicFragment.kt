@@ -10,38 +10,47 @@ import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
-import com.example.placementor.FirebaseSource
-import com.example.placementor.R
-import com.example.placementor.UserRepository
+import com.example.placementor.*
 import com.example.placementor.databinding.FragmentAcademicBinding
+import com.example.placementor.SharedViewModelFactory
+import com.example.placementor.SignUpSharedViewModel
 
 /**
  * A simple [Fragment] subclass.
  */
 class AcademicFragment : Fragment() {
     private lateinit var binding:FragmentAcademicBinding
-    private lateinit var viewModel: AcademicViewModel
-    private lateinit var factory: AcademicViewModelFactory
+    //private lateinit var viewModel: AcademicViewModel
+    private lateinit var sharedViewModel: SignUpSharedViewModel
+    //private lateinit var factory: AcademicViewModelFactory
+    private lateinit var sharedFactory: SharedViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding=DataBindingUtil.inflate(inflater,R.layout.fragment_academic,container,false)
-        factory= AcademicViewModelFactory(UserRepository(FirebaseSource()))
-        viewModel=ViewModelProvider(this,factory).get(AcademicViewModel::class.java)
-        binding.academic=viewModel
+        binding=DataBindingUtil.inflate(inflater,
+            R.layout.fragment_academic,container,false)
+        sharedFactory=
+            SharedViewModelFactory(
+                UserRepository(FirebaseSource())
+            )
+        //factory= AcademicViewModelFactory(UserRepository(FirebaseSource()))
+        //viewModel=ViewModelProvider(this,factory).get(AcademicViewModel::class.java)
+        sharedViewModel=ViewModelProvider(requireActivity(),sharedFactory).get(SignUpSharedViewModel::class.java)
+        binding.academic=sharedViewModel
         // Inflate the layout for this fragment
         binding.lifecycleOwner = this
         return binding.root
     }
     fun navigate(){
-        val email= arguments?.let { AcademicFragmentArgs.fromBundle(it).email }
-        val action=AcademicFragmentDirections
-            .actionAcademicFragmentToEducationFragment(viewModel.name!!,viewModel.enrollnumber!!,viewModel.course!!,
-            viewModel.backlogs!!,viewModel.yop!!,email!!)
+//        val email= arguments?.let { AcademicFragmentArgs.fromBundle(it).email }
+//        val action=AcademicFragmentDirections
+////            .actionAcademicFragmentToEducationFragment(viewModel.name!!,viewModel.enrollnumber!!,viewModel.course!!,
+////            viewModel.backlogs!!,viewModel.yop!!,email!!)
+        val action=
+            AcademicFragmentDirections.actionAcademicFragmentToEducationFragment()
         NavHostFragment.findNavController(this).navigate(action)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,6 +68,8 @@ class AcademicFragment : Fragment() {
         }
         val button=view.findViewById<Button>(R.id.academic_button)
         button.setOnClickListener {
+            Log.d("Firestore","AcademicFragment values ${sharedViewModel.name}")
+
             navigate()
 //            findNavController().navigate(R.id.educationFragment, null, options)
         }

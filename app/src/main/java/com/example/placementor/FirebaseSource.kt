@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
@@ -15,20 +16,22 @@ import com.google.firebase.storage.ktx.storage
 import java.net.URL
 
 class FirebaseSource {
-    private val firebaseAuth: FirebaseAuth by lazy {
+    val firebaseAuth: FirebaseAuth by lazy {
         FirebaseAuth.getInstance()
     }
-    private val fireStore=Firebase.firestore
+    val fireStore=Firebase.firestore
     //private val firebaseAuth= FirebaseAuth.getInstance()
-    private val firebaseStorage=Firebase.storage
-    private val refrence=firebaseStorage.reference
-    private val uid=firebaseAuth.currentUser?.uid
+    val firebaseStorage=Firebase.storage
+    val refrence=firebaseStorage.reference
     val document=MutableLiveData<DocumentSnapshot>()
     val name=MutableLiveData<String>()
     val enroll=MutableLiveData<String>()
     val course=MutableLiveData<String>()
     val academics=MutableLiveData<String>()
     val imageURL=MutableLiveData<String>()
+    val status=MutableLiveData<Boolean>()
+    val imageStatus=MutableLiveData<Boolean>()
+    val documentStatus=MutableLiveData<Boolean>()
 
 
 
@@ -60,7 +63,8 @@ class FirebaseSource {
     fun getUid()=firebaseAuth.currentUser?.uid
 
     fun saveUser(name:String,email: String, course:String, enrollnumber:String,
-                 backlogs:String, yop:String, graduation:String,xii:String,x:String,imageUri: String) {
+                 backlogs:String, yop:String, graduation:String,xii:String,x:String,imageUri: String){
+        val userId=getUid()
         val user = hashMapOf(
             "name" to name,
             "email" to email,
@@ -73,38 +77,44 @@ class FirebaseSource {
             "X" to x,
             "ImageURL" to imageUri
         )
-        fireStore.collection("Student Data").document(uid!!).set(user)
+        fireStore.collection("Student Data").document(userId!!).set(user)
             .addOnSuccessListener { documentReference ->
+                status.value=true
                 Log.d("Firestore", "DocumentSnapshot added")
             }
             .addOnFailureListener {
+                status.value=false
                 Log.d("Firestore", "Error in document addition $it")
             }
     }
     fun uploadImage(imageUri: Uri) {
         var imageUrl: String?
-        val imageReference=refrence.child("images/$uid")
+        val userId=getUid()
+        val imageReference=refrence.child("images/$userId")
         imageReference.putFile(imageUri)
             .addOnSuccessListener{upload ->
                     imageReference.downloadUrl.addOnSuccessListener {
+                        imageStatus.value=true
                         imageUrl=it.toString()
-                        fireStore.collection("Student Data").document(uid!!).update("ImageURL",imageUrl)
+                        fireStore.collection("Student Data").document(userId!!).update("ImageURL",imageUrl)
                     }
                     Log.d("Upload", "Upload successful")
             }
     }
     fun uploadCV(documentUri:Uri){
-        val documentReference=refrence.child("Resumes/$uid")
+        val userId=getUid()
+        val documentReference=refrence.child("Resumes/$userId")
         documentReference.putFile(documentUri)
             .addOnCompleteListener { upload ->
-                if (upload.isComplete)
-                    Log.d("Upload","Upload sucessfull")
+                if (upload.isComplete) {
+                    documentStatus.value = true
+                    Log.d("Upload", "Upload sucessfull")
+                }
                 else
                     Log.d("Upload","Upload Failed due to ${upload.exception}")
 
             }
     }
-
     fun getdocument(userid:String)=
         fireStore.collection("Student Data").document(userid).get()
             .addOnSuccessListener {documentSnapshot ->

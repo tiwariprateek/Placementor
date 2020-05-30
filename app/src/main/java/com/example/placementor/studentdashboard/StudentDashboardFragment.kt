@@ -1,6 +1,5 @@
 package com.example.placementor.studentdashboard
 
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -11,43 +10,57 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.placementor.FirebaseSource
+import com.example.placementor.*
 
-import com.example.placementor.R
-import com.example.placementor.UserRepository
 import com.example.placementor.databinding.FragmentStudentDashboardBinding
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_student_dashboard.*
+import com.example.placementor.StudentSharedViewModelFactory
 
 /**
  * A simple [Fragment] subclass.
  */
 class StudentDashboardFragment : Fragment() {
     private lateinit var binding:FragmentStudentDashboardBinding
-    private lateinit var viewModel: DashboardViewModel
-    private lateinit var factory: DashboardViewModelFactory
+//    private lateinit var viewModel: DashboardViewModel
+//    private lateinit var factory: DashboardViewModelFactory
+    private lateinit var sharedFactory: StudentSharedViewModelFactory
+    private lateinit var sharedViewModel: StudentSharedViewModel
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         //Log.d("Login","User id is ${FirebaseSource().getUid()}")
         // Inflate the layout for this fragment
         binding=
-            DataBindingUtil.inflate(inflater,R.layout.fragment_student_dashboard,container,false)
-        factory= DashboardViewModelFactory(UserRepository(FirebaseSource()))
-        viewModel=ViewModelProvider(requireActivity(),factory).get(DashboardViewModel::class.java)
-        viewModel.imageURL.observe(viewLifecycleOwner, Observer {imageUri->
-            Log.d("Login","Value of students are ${viewModel.getStudent()}")
-            if (imageView.drawable==null)
-                viewModel.setImage(imageView)
-            else
-                Log.d("Login","ImageView was not null")
+            DataBindingUtil.inflate(inflater,
+                R.layout.fragment_student_dashboard,container,false)
+        binding.progressBar.visibility=View.VISIBLE
+//        factory= DashboardViewModelFactory(UserRepository(FirebaseSource()))
+//        viewModel=ViewModelProvider(requireActivity(),factory).get(DashboardViewModel::class.java)
+        sharedFactory=
+            StudentSharedViewModelFactory(
+                UserRepository(FirebaseSource())
+            )
+        sharedViewModel=ViewModelProvider(requireActivity(),sharedFactory).get(
+            StudentSharedViewModel::class.java)
+        sharedViewModel.document.observe(viewLifecycleOwner, Observer {
+            if (it!=null)
+                binding.progressBar.visibility=View.GONE
 
         })
-        binding.dashboardviewmodel=viewModel
+//        sharedViewModel.imageURL.observe(viewLifecycleOwner, Observer { imageUri ->
+//            if (imageUri == null) {
+//                Log.d("ImageURI", "ImageUri is null")
+//            }
+//            else
+//                Log.d("ImageURI", "ImageUri is not null")
+//            //Log.d("Login","Value of students are ${viewModel.getStudent()}")
+//        })
+        binding.dashboardviewmodel=sharedViewModel
         binding.lifecycleOwner = this
+        Log.d("ViewModel","Values ${sharedViewModel.name.value}")
         return binding.root
 
     }
