@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.placementor.R
+import com.example.placementor.jobs.Jobs
+import com.example.placementor.jobs.JobsAdapter
 import kotlinx.android.synthetic.main.resources_row.view.*
 
-class ResourceAdapter(private val context: Context, private val resources: List<Resources>)
+class ResourceAdapter(private val context: Context, private val resources: List<Resources>,val onClickListener: ResourceAdapter.OnClickListener)
     : RecyclerView.Adapter<ResourceAdapter.ViewHolder>() {
 
     // Usually involves inflating a layout from XML and returning the holder - THIS IS EXPENSIVE
@@ -22,6 +24,9 @@ class ResourceAdapter(private val context: Context, private val resources: List<
     // Involves populating data into the item through holder - NOT expensive
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val contact = resources[position]
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(contact)
+        }
         holder.bind(contact)
     }
 
@@ -31,5 +36,8 @@ class ResourceAdapter(private val context: Context, private val resources: List<
 //            itemView.tvAge.text = "Age: ${contact.age}"
 //            Glide.with(context).load(contact.imageUrl).into(itemView.ivProfile)
         }
+    }
+    class OnClickListener(val clickListener: (resources:Resources) -> Unit) {
+        fun onClick(resources: Resources) = clickListener(resources)
     }
 }

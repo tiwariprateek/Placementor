@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -97,11 +97,23 @@
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/jobDetails"
-        android:name="com.example.placementor.JobDetails"
+        android:name="com.example.placementor.jobs.JobDetails"
         android:label="fragment_job_details"
         tools:layout="@layout/fragment_job_details" >
         <argument
             android:name="selectedJob"
             app:argType="com.example.placementor.jobs.Jobs" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.placementor.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_studentDashboardFragment2"
+            app:destination="@id/studentDashboardFragment" />
     </fragment>
 </navigation>

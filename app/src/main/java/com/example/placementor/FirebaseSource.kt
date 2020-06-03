@@ -2,6 +2,7 @@ package com.example.placementor
 
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
 import androidx.core.app.ActivityCompat.startActivityForResult
@@ -115,6 +116,10 @@ class FirebaseSource {
 
             }
     }
+    fun logout(){
+        firebaseAuth.signOut()
+    }
+
     fun getdocument(userid:String)=
         fireStore.collection("Student Data").document(userid).get()
             .addOnSuccessListener {documentSnapshot ->

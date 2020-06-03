@@ -7,9 +7,11 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.placementor.UserRepository
 import com.example.placementor.jobs.Jobs
+import com.example.placementor.jobs.JobsAdapter
 import com.example.placementor.resources.Resources
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
@@ -49,15 +51,15 @@ class StudentSharedViewModel(val repository: UserRepository):ViewModel() {
     val navigateToSelectedJob:LiveData<Jobs>
         get() = _navigateToSelectedJob
 
+    val _downloadSelectedResource=MutableLiveData<Resources>()
+    val downloadSelectedresource:LiveData<Resources>
+        get() = _downloadSelectedResource
+
     init {
         _document.value=null
         getStudent()
         getResources()
-        Log.d("Resources","INIT")
-        Log.d("Resources","Value of uid is $firebaseAuth")
         getJobs()
-        Log.d("Jobs","INIT")
-        Log.d("Jobs","Value of uid is $firebaseAuth")
 
     }
     fun displayJobsDetails(selectedJob: Jobs){
@@ -66,6 +68,17 @@ class StudentSharedViewModel(val repository: UserRepository):ViewModel() {
     fun displayJobDetailsComplete(){
         _navigateToSelectedJob.value=null
     }
+    fun downloadResource(selectedResource: Resources){
+        _downloadSelectedResource.value=selectedResource
+    }
+    fun setValues(name:String,enroll:String,course:String,academics:String,imageUri:String){
+        _name.value=name
+        _enroll.value=enroll
+        _course.value=course
+        _academics.value=academics
+        _imageURL.value=imageUri
+    }
+
 
     fun getStudent(){
             fireStore.collection("Student Data").document(uid!!).get()
@@ -77,12 +90,6 @@ class StudentSharedViewModel(val repository: UserRepository):ViewModel() {
                         _course.value=documentSnapshot.getString("course").toString()
                         _academics.value=documentSnapshot.getString("graduation").toString()
                         _imageURL.value=documentSnapshot.getString("ImageURL").toString()
-//                        imageURL.value=documentSnapshot.getString("ImageURL").toString()
-//                        document.value=documentSnapshot
-//                        name.value=documentSnapshot.getString("name").toString()
-//                        enroll.value=documentSnapshot.getString("enrollnumber").toString()
-//                        course.value=documentSnapshot.getString("course").toString()
-//                        academics.value=documentSnapshot.getString("graduation").toString()
                         Log.d("Login","Login data is ${documentSnapshot}")
                     }
                 }
@@ -138,12 +145,3 @@ fun loadImage(view: ImageView,imgUrl:String?){
             .into(view)
     }
 }
-
-
-//@BindingAdapter("imageUrl")
-//fun loadImage(view: ImageView, imageUrl: String?){
-//    Picasso.get()
-//        .load(imageUrl)
-//        .into(view)
-//    Log.d("Login","Loading image")
-//}

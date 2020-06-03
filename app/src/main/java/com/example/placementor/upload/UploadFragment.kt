@@ -1,23 +1,26 @@
 package com.example.placementor.upload
 
+import android.Manifest
 import android.app.Activity.RESULT_OK
+import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import com.example.placementor.*
 import com.example.placementor.databinding.FragmentUploadBinding
-import com.example.placementor.SharedViewModelFactory
-import com.example.placementor.SignUpSharedViewModel
 import com.squareup.picasso.Picasso
 import id.zelory.compressor.Compressor
 import id.zelory.compressor.constraint.quality
@@ -29,17 +32,18 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 
+
 /**
  * A simple [Fragment] subclass.
  */
 class UploadFragment : Fragment() {
-//    lateinit var viewModel: UploadViewModel
     private lateinit var sharedViewModel: SignUpSharedViewModel
     private lateinit var sharedFactory: SharedViewModelFactory
-//    lateinit var factory: UploadViewModelFactory
     lateinit var binding: FragmentUploadBinding
     lateinit var compressedImage:File
     lateinit var cursor: Cursor
+    private val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE=1001
+    var permission=false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,42 +52,96 @@ class UploadFragment : Fragment() {
             SharedViewModelFactory(
                 UserRepository(FirebaseSource())
             )
-        //factory= UploadViewModelFactory(UserRepository(FirebaseSource()), Application())
-        //viewModel=ViewModelProvider(this,factory).get(UploadViewModel::class.java)
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissions(
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE
+            )
+
+        } else {
+            permission=true
+        }
+
         sharedViewModel=ViewModelProvider(requireActivity(),sharedFactory).get(SignUpSharedViewModel::class.java)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_upload, container, false)
-        binding.progressBar2.visibility=View.GONE
-        sharedViewModel.imageStatus.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            if (it!=null) {
-                sharedViewModel.documentStatus.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-                    if (it!=null) {
-                        binding.progressBar2.visibility=View.GONE
-                        navigateToDashboard()
-                    }
-                })
-            }
-        })
         binding.uploadviewmodel=sharedViewModel
         binding.lifecycleOwner=this
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("Upload", "Permission is $permission")
+        val dialog =
+            LoadingDialog(requireActivity()).buildDialog(requireContext(), requireActivity())
         button.setOnClickListener {
-            binding.progressBar2.visibility=View.VISIBLE
-            sharedViewModel.uploadImage()
-            sharedViewModel.uploadCV()
+                dialog.show()
+                sharedViewModel.uploadImage()
+                sharedViewModel.uploadCV()
+
         }
+        sharedViewModel.imageStatus.observe(
+            viewLifecycleOwner,
+            androidx.lifecycle.Observer { imgstatus ->
+                if (imgstatus != null) {
+                    sharedViewModel.documentStatus.observe(
+                        viewLifecycleOwner, androidx.lifecycle.Observer { docstatus ->
+                            if (docstatus != null) {
+                                dialog.dismiss()
+                                navigateToDashboard()
+                            }
+                        }
+                    )
+                }
+            })
         imageView5.setOnClickListener {
-            val intent=Intent().setType("application/pdf")
-                .setAction(Intent.ACTION_GET_CONTENT)
-            startActivityForResult(intent,1)
+            if (permission) {
+                val intent = Intent().setType("application/pdf")
+                    .setAction(Intent.ACTION_GET_CONTENT)
+                startActivityForResult(intent, 1)
+            }
+            else{
+                val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                builder.setMessage("Without permission we won't be abe to unlock our whole potential." +
+                        "Kindly grant the permission to have best experience")
+                    .setCancelable(false)
+                    .setPositiveButton("OK"
+                    ) { _, _ ->
+                        requestPermissions(
+                            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                            MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE
+                        )
+                    }
+                val alert: AlertDialog = builder.create()
+                alert.show()
+            }
         }
         imageView4.setOnClickListener {
-            val intent=Intent()
-            intent.type = "image/*"
-            intent.action = Intent.ACTION_PICK
-            startActivityForResult(intent,0)
+            if (permission) {
+                val intent = Intent()
+                intent.type = "image/*"
+                intent.action = Intent.ACTION_PICK
+                startActivityForResult(intent, 0)
+            }
+            else {
+                val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                builder.setMessage("Without permission we won't be abe to unlock our whole potential." +
+                        "Kindly grant the permission to have best experience")
+                    .setCancelable(false)
+                    .setPositiveButton("OK"
+                    ){ _, _ ->
+                            requestPermissions(
+                                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                                MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE
+                            )
+                        }
+                val alert: AlertDialog = builder.create()
+                alert.show()
+            }
         }
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -125,8 +183,26 @@ class UploadFragment : Fragment() {
         }
     }
     fun navigateToDashboard(){
-        val action =
-            UploadFragmentDirections.actionUploadFragmentToStudentDashboardFragment()
-        findNavController().navigate(action)
+        val options = navOptions {
+            anim {
+                enter = R.anim.slide_in_right
+                exit = R.anim.slide_out_left
+                popEnter = R.anim.slide_in_left
+                popExit = R.anim.slide_out_right
+            }
+        }
+        findNavController().navigate(R.id.action_uploadFragment_to_studentDashboardFragment,null,options)
+    }
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE -> {
+                permission = (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                return
+            }
+            else -> {
+                // Ignore all other requests.
+            }
+        }
     }
 }

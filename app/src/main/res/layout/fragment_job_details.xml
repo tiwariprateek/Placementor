@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".JobDetails">
+    tools:context=".jobs.JobDetails"
+    android:background="@color/white">
 
     <TextView
+        android:textAlignment="center"
         android:id="@+id/textView29"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -23,6 +25,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
+        android:background="@color/bgcolor"
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -48,7 +51,7 @@
                 android:fontFamily="@font/roboto"
                 android:text="Company Name"
                 android:textColor="@color/mygrey"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/company_name"
@@ -56,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:text=" "
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:layout_marginTop="4dp"/>
 
             <TextView
@@ -65,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:text="About Company"
                 android:textColor="@color/mygrey"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:fontFamily="@font/roboto"
                 android:layout_marginTop="4dp"
                 />
@@ -76,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:layout_marginTop="4dp"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/textView22"
@@ -86,7 +89,7 @@
                 android:text="Job Profile"
                 android:textColor="@color/mygrey"
                 android:layout_marginTop="4dp"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/job_profile"
@@ -95,7 +98,7 @@
                 android:fontFamily="@font/roboto"
                 android:layout_marginTop="4dp"
                 android:text=" "
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/textView25"
@@ -105,29 +108,31 @@
                 android:text="Job Description"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/mygrey"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
             <TextView
+
                 android:id="@+id/job_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:layout_marginTop="4dp"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_marginTop="4dp"
                 android:textColor="@color/mygrey"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:id="@+id/textView37"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Course" />
 
             <TextView
+
                 android:layout_marginTop="4dp"
                 android:textColor="@color/mygrey"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:id="@+id/course"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -140,15 +145,16 @@
                 android:text="Eligibility criteria"
                 android:textColor="@color/mygrey"
                 android:layout_marginTop="4dp"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
             <TextView
+
                 android:id="@+id/textView27"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:layout_marginTop="4dp"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/textView23"
@@ -158,15 +164,16 @@
                 android:text="Salary"
                 android:textColor="@color/mygrey"
                 android:layout_marginTop="4dp"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
             <TextView
+
                 android:id="@+id/job_salary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:layout_marginTop="4dp"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/textView24"
@@ -176,15 +183,16 @@
                 android:text="Link To Apply"
                 android:textColor="@color/mygrey"
                 android:layout_marginTop="4dp"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
             <TextView
+
                 android:id="@+id/job_website"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:layout_marginTop="4dp"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -193,16 +201,17 @@
                 android:text="Last Date"
                 android:textColor="@color/mygrey"
                 android:layout_marginTop="4dp"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:fontFamily="@font/roboto"/>
 
             <TextView
+
                 android:id="@+id/lastdate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:layout_marginTop="4dp"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/textView28"
@@ -211,16 +220,17 @@
                 android:text="Online Test Date"
                 android:textColor="@color/mygrey"
                 android:layout_marginTop="4dp"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:fontFamily="@font/roboto"/>
 
             <TextView
+
                 android:id="@+id/online_test_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:layout_marginTop="4dp"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/textView31"
@@ -229,16 +239,17 @@
                 android:text="Interview Date"
                 android:textColor="@color/mygrey"
                 android:layout_marginTop="4dp"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:fontFamily="@font/roboto"/>
 
             <TextView
+
                 android:id="@+id/interview_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:layout_marginTop="4dp"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
 
             <TextView
                 android:layout_marginTop="4dp"
@@ -247,7 +258,7 @@
                 android:layout_height="wrap_content"
                 android:text="Special Instructions"
                 android:textColor="@color/mygrey"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:fontFamily="@font/roboto"/>
 
             <TextView
@@ -255,13 +266,15 @@
                 android:id="@+id/textView36"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:fontFamily="@font/roboto"
                 />
         </LinearLayout>
     </ScrollView>
 
     <Button
+        android:background="@drawable/rounded_buttons"
+        android:textColor="@color/white"
         android:id="@+id/button2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -274,6 +287,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
+        android:background="@drawable/rounded_buttons"
+        android:textColor="@color/white"
         android:id="@+id/button3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

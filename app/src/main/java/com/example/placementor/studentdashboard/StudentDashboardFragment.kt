@@ -20,95 +20,72 @@ import com.example.placementor.StudentSharedViewModelFactory
  */
 class StudentDashboardFragment : Fragment() {
     private lateinit var binding:FragmentStudentDashboardBinding
-//    private lateinit var viewModel: DashboardViewModel
-//    private lateinit var factory: DashboardViewModelFactory
     private lateinit var sharedFactory: StudentSharedViewModelFactory
     private lateinit var sharedViewModel: StudentSharedViewModel
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding =
+            DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_student_dashboard, container, false
+            )
+        val loadingDialog=LoadingDialog(requireActivity())
 
-        //Log.d("Login","User id is ${FirebaseSource().getUid()}")
-        // Inflate the layout for this fragment
-        binding=
-            DataBindingUtil.inflate(inflater,
-                R.layout.fragment_student_dashboard,container,false)
-        binding.progressBar.visibility=View.VISIBLE
-//        factory= DashboardViewModelFactory(UserRepository(FirebaseSource()))
-//        viewModel=ViewModelProvider(requireActivity(),factory).get(DashboardViewModel::class.java)
-        sharedFactory=
+        loadingDialog.showDialog(requireContext(),requireActivity())
+        //binding.progressBar.visibility = View.VISIBLE
+        sharedFactory =
             StudentSharedViewModelFactory(
                 UserRepository(FirebaseSource())
             )
-        sharedViewModel=ViewModelProvider(requireActivity(),sharedFactory).get(
-            StudentSharedViewModel::class.java)
+        sharedViewModel = ViewModelProvider(requireActivity(), sharedFactory).get(
+            StudentSharedViewModel::class.java
+        )
         sharedViewModel.document.observe(viewLifecycleOwner, Observer {
-            if (it!=null)
-                binding.progressBar.visibility=View.GONE
+            if (it != null) {
+                loadingDialog.hideDialog()
 
+                //binding.progressBar.visibility = View.GONE
+                saveDataLocally(it.getString("name"),it.getString("enrollnumber"),it.getString("course")
+                ,it.getString("graduation"),it.getString("ImageURL"))
+            }
         })
-//        sharedViewModel.imageURL.observe(viewLifecycleOwner, Observer { imageUri ->
-//            if (imageUri == null) {
-//                Log.d("ImageURI", "ImageUri is null")
-//            }
-//            else
-//                Log.d("ImageURI", "ImageUri is not null")
-//            //Log.d("Login","Value of students are ${viewModel.getStudent()}")
-//        })
-        binding.dashboardviewmodel=sharedViewModel
+        binding.dashboardviewmodel = sharedViewModel
         binding.lifecycleOwner = this
-        Log.d("ViewModel","Values ${sharedViewModel.name.value}")
+        Log.d("ViewModel", "Values ${sharedViewModel.name.value}")
+
         return binding.root
 
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        Log.d("Fragment","Activity Created")
-
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("Fragment","Fragment Paused")
+    fun saveDataLocally(name:String?,enroll:String?,course:String?,academics:String?,imageUri:String?){
+        val sharedPref=requireContext().getSharedPreferences("Shared_Pref",Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putString("name",name)
+            putString("enroll",enroll)
+            putString("course",course)
+            putString("academics",academics)
+            putString("imageUri",imageUri)
+            commit()
+        }
+        Log.d("Fragment", "Shared values are $name $enroll $course $academics $imageUri")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val sharedPref = requireContext().getSharedPreferences("Shared_Pref", Context.MODE_PRIVATE)
         Log.d("Fragment","Fragment created")
-        //Log.d("Login","Image uri is ${viewModel.imageURL.value}")
+        if (sharedViewModel.uid != null) {
+            Log.d("Fragment","name ${sharedViewModel.name.value}")
+            val name = sharedPref.getString("name", null)
+            val enroll = sharedPref.getString("enroll", null)
+            val course = sharedPref.getString("course", null)
+            val academics = sharedPref.getString("academics", null)
+            val imageUri = sharedPref.getString("imageUri", null)
+            Log.d("Fragment", "Shared values are $name $enroll $course $academics $imageUri")
+            //sharedViewModel.setValues(name!!,enroll!!,course!!,academics!!,imageUri!!)
+        }
     }
 
-    override fun onStart() {
-        super.onStart()
-        Log.d("Fragment","Fragment started")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("Fragment","Fragment resumed")
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.d("Fragment","Fragment Attach")
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        Log.d("Fragment","Fragment Detach")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("Fragment","Fragment stopped")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d("Fragment","Fragment destroyed")
-    }
 }

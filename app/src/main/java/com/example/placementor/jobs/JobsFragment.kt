@@ -33,14 +33,13 @@ class JobsFragment : Fragment() {
     ): View? {
         //factory= JobsViewModelFactory(UserRepository(FirebaseSource()))
         sharedViewModel=ViewModelProvider(requireActivity()).get(StudentSharedViewModel::class.java)
-        sharedViewModel.Jobs.observe(viewLifecycleOwner, Observer { job ->
+        sharedViewModel.Jobs.observe(viewLifecycleOwner, Observer { job->
             jobsAdapter=JobsAdapter(requireContext(),jobs,JobsAdapter.OnClickListener{
                 sharedViewModel.displayJobsDetails(it)
             })
             val decoration= ItemDecoration(30)
             jobs_recyclerview.addItemDecoration(decoration)
             jobs_recyclerview.adapter=jobsAdapter
-            jobs_recyclerview.layoutManager=LinearLayoutManager(requireContext())
             jobs_recyclerview.setHasFixedSize(true)
             jobs.clear()
             jobs.addAll(job)
@@ -56,17 +55,6 @@ class JobsFragment : Fragment() {
         })
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_jobs, container, false)
-    }
-
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-
-
-    }
-    fun navigate(){
-
     }
 
 }

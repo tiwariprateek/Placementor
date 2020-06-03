@@ -1,7 +1,7 @@
 package com.example.placementor.resources
 
-data class Resources(var name:String=" ") {
-    override fun toString(): String {
-        return name
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+@Parcelize
+data class Resources(var name:String=" ", var downloadUrl:String=" "):Parcelable {
     }
-}
