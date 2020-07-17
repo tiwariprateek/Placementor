@@ -62,7 +62,7 @@ class ResourcesFragment : Fragment() {
                     val request=DownloadManager.Request(Uri.parse(url))
                     request.apply {
                         setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE )
-                        setTitle("${it.name}")
+                        setTitle(it.name)
                         setDescription("Downloading Previous year placement papers")
                         allowScanningByMediaScanner()
                         setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
@@ -89,8 +89,8 @@ class ResourcesFragment : Fragment() {
             })
             val decoration= ItemDecoration(30)
             jobs_recyclerview.addItemDecoration(decoration)
-            jobs_recyclerview.adapter=resourceAdapter
-            jobs_recyclerview.layoutManager= LinearLayoutManager(requireContext())
+            jobs_recyclerview.adapter = resourceAdapter
+            jobs_recyclerview.layoutManager = LinearLayoutManager(requireContext())
             jobs_recyclerview.setHasFixedSize(true)
             resources.clear()
             resources.addAll(resource)

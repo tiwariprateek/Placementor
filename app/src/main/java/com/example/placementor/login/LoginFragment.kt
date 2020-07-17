@@ -24,6 +24,10 @@ import com.example.placementor.databinding.FragmentLoginBinding
 import com.example.placementor.SharedViewModelFactory
 import com.example.placementor.SignUpSharedViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_login.signup_button
+import kotlinx.android.synthetic.main.fragment_login.signup_email
+import kotlinx.android.synthetic.main.fragment_login.signup_password
+import kotlinx.android.synthetic.main.fragment_sign_up.*
 
 /**
  * A simple [Fragment] subclass.
@@ -87,6 +91,13 @@ class LoginFragment : Fragment() {
         signup_button.setOnClickListener {
             dialog.show()
             sharedViewModel.login()
+            if(sharedViewModel.email.isNullOrEmpty() or sharedViewModel.password.isNullOrEmpty()){
+            }
+            else{
+                signup_email.setError("Please enter email for login")
+                signup_password.setError("Please enter email for login")
+            }
+
         }
         sharedViewModel.user.observe(viewLifecycleOwner, Observer { user->
             if (user)

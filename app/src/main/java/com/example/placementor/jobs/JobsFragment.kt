@@ -34,7 +34,7 @@ class JobsFragment : Fragment() {
         //factory= JobsViewModelFactory(UserRepository(FirebaseSource()))
         sharedViewModel=ViewModelProvider(requireActivity()).get(StudentSharedViewModel::class.java)
         sharedViewModel.Jobs.observe(viewLifecycleOwner, Observer { job->
-            jobsAdapter=JobsAdapter(requireContext(),jobs,JobsAdapter.OnClickListener{
+            jobsAdapter=JobsAdapter(jobs,JobsAdapter.OnClickListener{
                 sharedViewModel.displayJobsDetails(it)
             })
             val decoration= ItemDecoration(30)
