@@ -43,10 +43,27 @@ class AcademicFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val name = binding.academicName.text
+        val enroll_no = binding.academicEnroll.text
+        val course = binding.academicCourse.text
+        val yop = binding.academicYop.text
+        val backlogs = binding.academicBacklog.text
         binding.academicButton.setOnClickListener {
-
-            Log.d("Firestore","AcademicFragment values ${sharedViewModel.name}")
-            navigateToEducation()
+            if (name.isEmpty() || enroll_no.isEmpty() || course.isEmpty() || yop.isEmpty() || backlogs.isEmpty()){
+                if (name.isEmpty())
+                    binding.academicName.error = "Name can't be left empty"
+                if (enroll_no.isEmpty())
+                    binding.academicEnroll.error = "Enrollment number can't be left empty"
+                if (course.isEmpty())
+                    binding.academicCourse.error = "Course can't be left empty"
+                if (yop.isEmpty())
+                    binding.academicYop.error = "Year of passing can't be left empty"
+                if (backlogs.isEmpty())
+                    binding.academicBacklog.error = "Backlogs can't be left empty"
+            }
+            else{
+                Log.d("Firestore","AcademicFragment values ${sharedViewModel.name}")
+                navigateToEducation()
+        }
         }
     }
     fun navigateToEducation(){
