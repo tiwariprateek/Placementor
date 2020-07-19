@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="10dp"
@@ -8,64 +9,90 @@
     android:layout_marginEnd="8dp"
     android:layout_marginStart="8dp"
     app:cardPreventCornerOverlap="false">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
 
-    <TextView
-        android:layout_marginTop="4dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        android:id="@+id/job_company"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto"
-        android:text="Company"
-        android:textColor="@color/mygrey"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        android:id="@+id/job_profile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Profile : "
-        android:textColor="@color/mygrey" />
+        <TextView
+            android:id="@+id/job_company"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:fontFamily="@font/roboto"
+            android:text="Company"
+            android:textColor="@color/mygrey"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/job_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread_inside" />
 
-    <TextView
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        android:id="@+id/job_course"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Course : "
-        android:textColor="@color/mygrey" />
+        <TextView
+            android:id="@+id/job_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="1dp"
+            android:text="Profile : "
+            android:textColor="@color/mygrey"
+            app:layout_constraintBottom_toTopOf="@+id/job_course"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/job_company" />
 
-    <TextView
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        android:id="@+id/job_salary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Salary : "
-        android:textColor="@color/mygrey" />
+        <TextView
+            android:id="@+id/job_course"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="1dp"
+            android:text="Course : "
+            android:textColor="@color/mygrey"
+            app:layout_constraintBottom_toTopOf="@+id/job_salary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/job_profile" />
 
-    <TextView
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        android:id="@+id/job_lastdate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Last Date : "
-        android:textAlignment="viewEnd"
-        android:textColor="@color/mygrey" />
+        <TextView
+            android:id="@+id/job_salary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="8dp"
+            android:text="Salary : "
+            android:textColor="@color/mygrey"
+            app:layout_constraintBottom_toTopOf="@+id/job_lastdate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/job_course" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/job_lastdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:text="Last Date : "
+            android:textAlignment="viewEnd"
+            android:textColor="@color/mygrey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/job_salary" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -69,10 +69,7 @@ class LoginFragment : Fragment() {
             permission=true
             Log.d("Upload Fragment", "Permission granted")
         }
-
         return binding.root
-
-
     }
 
     private fun saveUid(uid: String) {
@@ -86,16 +83,20 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val loadingDialog=LoadingDialog(requireActivity())
+        val email = binding.signupEmail.text
+        val password = binding.signupPassword.text
         Log.d("Login Fragment","Permission is $permission")
         val dialog=loadingDialog.buildDialog(requireContext(),requireActivity())
         signup_button.setOnClickListener {
-            dialog.show()
-            sharedViewModel.login()
-            if(sharedViewModel.email.isNullOrEmpty() or sharedViewModel.password.isNullOrEmpty()){
+            if(email!!.isEmpty() || password!!.isEmpty()){
+                if (email.isEmpty())
+                    binding.signupEmail.error = "Email cannot be left empty"
+                if (password!!.isEmpty())
+                    binding.signupPassword.error = "Password cannot be left empty"
             }
             else{
-                signup_email.setError("Please enter email for login")
-                signup_password.setError("Please enter email for login")
+                dialog.show()
+                sharedViewModel.login()
             }
 
         }
