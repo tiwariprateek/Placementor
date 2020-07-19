@@ -41,10 +41,23 @@ class EducationFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val grad = binding.academicName.text
+        val xii = binding.academicEnroll.text
+        val x = binding.academicCourse.text
         val dialog=LoadingDialog(requireActivity()).buildDialog(requireContext(),requireActivity())
         binding.academicButton.setOnClickListener {
-            sharedViewModel.saveUserData()
-            dialog.show()
+            if (grad.isEmpty() || xii.isEmpty() || x.isEmpty()){
+                if (grad.isEmpty())
+                    binding.academicName.error = "This field can't be left empty"
+                if (xii.isEmpty())
+                    binding.academicEnroll.error = "This field can't be left empty"
+                if (x.isEmpty())
+                    binding.academicCourse.error = "This field can't be left empty"
+            }
+            else {
+                dialog.show()
+                sharedViewModel.saveUserData()
+            }
             Log.d("Firestore","Values are ${sharedViewModel.email}, ${sharedViewModel.name}" +
                     ", ${sharedViewModel.course}, ${sharedViewModel.enrollnumber}, ${sharedViewModel.backlogs}," +
                     "${sharedViewModel.yop}, ${sharedViewModel.xii}, ${sharedViewModel.x}, ${sharedViewModel.backlogs}")
