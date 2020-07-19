@@ -42,7 +42,9 @@ class AcademicFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val name = binding.academicName.text
         binding.academicButton.setOnClickListener {
+
             Log.d("Firestore","AcademicFragment values ${sharedViewModel.name}")
             navigateToEducation()
         }

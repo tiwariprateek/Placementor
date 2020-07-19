@@ -52,9 +52,19 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val dialog=LoadingDialog(requireActivity()).buildDialog(requireContext(),requireActivity())
+        val email = binding.signupEmail.text
+        val password = binding.signupPassword.text
         binding.signupButton.setOnClickListener {
-            sharedViewModel.signUp()
-            dialog.show()
+            if(email!!.isEmpty() || password!!.isEmpty()){
+                if (email.isEmpty())
+                    binding.signupEmail.error = "Email cannot be left empty"
+                if (password!!.isEmpty())
+                    binding.signupPassword.error = "Password cannot be left empty"
+            }
+            else {
+                dialog.show()
+                sharedViewModel.signUp()
+            }
         }
         sharedViewModel.user.observe(viewLifecycleOwner, Observer {currentuser ->
             if (currentuser==true) {
@@ -91,5 +101,4 @@ class SignUpFragment : Fragment() {
         }
         findNavController().navigate(R.id.academicFragment, null, options)
     }
-
 }
