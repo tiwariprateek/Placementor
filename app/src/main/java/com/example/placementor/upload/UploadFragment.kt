@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -44,6 +45,8 @@ class UploadFragment : Fragment() {
     lateinit var cursor: Cursor
     private val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE=1001
     var permission=false
+    var image:Uri? = null
+    var documentUri:Uri?=null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -79,10 +82,13 @@ class UploadFragment : Fragment() {
         val dialog =
             LoadingDialog(requireActivity()).buildDialog(requireContext(), requireActivity())
         button.setOnClickListener {
+            if (image!=null && documentUri!=null) {
                 dialog.show()
                 sharedViewModel.uploadImage()
                 sharedViewModel.uploadCV()
-
+            }
+            else
+                Toast.makeText(requireContext(),"Please select image and CV to continue",Toast.LENGTH_SHORT).show()
         }
         sharedViewModel.imageStatus.observe(
             viewLifecycleOwner,
@@ -154,7 +160,8 @@ class UploadFragment : Fragment() {
                     compressedImage = Compressor.compress(requireContext(), file){
                         quality(10)
                     }
-                    val image=Uri.fromFile(compressedImage)
+                    //val image=Uri.fromFile(compressedImage)
+                    image = Uri.fromFile(compressedImage)
                     sharedViewModel.imageUri=image
                     Log.d("Image","Image Uri is $image")
                     withContext(Main) {
@@ -163,7 +170,8 @@ class UploadFragment : Fragment() {
                 }
             }
             1 ->if (requestCode==1 && resultCode==RESULT_OK && data !=null && data.data!=null){
-                val documentUri=data.data
+                //val documentUri=data.data
+                documentUri = data.data
                 sharedViewModel.documentUri=documentUri
                 val documentString=documentUri.toString()
                 if (documentString.startsWith("content://")){
