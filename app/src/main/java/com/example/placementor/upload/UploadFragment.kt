@@ -156,6 +156,7 @@ class UploadFragment : Fragment() {
             0 -> if (requestCode==0 && resultCode==RESULT_OK && data !=null && data.data!=null ){
                 val imageUri=data.data
                 val file= MyFileUtil.from(context,imageUri)
+                //Change the scope of this coroutine
                 CoroutineScope(IO).launch {
                     compressedImage = Compressor.compress(requireContext(), file){
                         quality(10)

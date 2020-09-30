@@ -1,6 +1,7 @@
 package com.example.placementor
 
 import android.net.Uri
+import com.google.firebase.auth.FirebaseAuth
 
 class UserRepository (private val firebaseSource:FirebaseSource){
     fun getUser()=firebaseSource.getUser()
@@ -13,6 +14,8 @@ class UserRepository (private val firebaseSource:FirebaseSource){
     fun uploadCV(documentUri:Uri)=firebaseSource.uploadCV(documentUri)
     fun getUid()=firebaseSource.getUid()
     fun signout()=firebaseSource.logout()
+//    suspend fun loginWithCoroutines(email: String,password: String)
+//            = firebaseSource.loginWithCoroutines(email, password)
     fun getDocument(userid:String)=firebaseSource.getdocument(userid)
     val imageURL=firebaseSource.imageURL
     val document=firebaseSource.document

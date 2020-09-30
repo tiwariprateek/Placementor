@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.placementor.R
 import kotlinx.android.synthetic.main.fragment_job_details.*
 
@@ -43,12 +44,7 @@ class JobDetails : Fragment() {
         interview_date.setText(jobs.Interview_date)
         textView36.setText(jobs.Special_instructions)
         button2.setOnClickListener {
-            openLink(jobs.Link)
+            this.findNavController().navigate(JobDetailsDirections.actionJobDetailsToJobApplyFragment(jobs.Link))
         }
     }
-    fun openLink(link:String){
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://"+link))
-        startActivity(browserIntent)
-    }
-
 }

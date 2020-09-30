@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.placementor.R
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.job_item.view.*
 
 class JobsAdapter(private val Jobs: List<Jobs>,val onClickListener: OnClickListener)
@@ -32,6 +33,10 @@ class JobsAdapter(private val Jobs: List<Jobs>,val onClickListener: OnClickListe
             itemView.job_salary.setText("Salary : ${jobs.Salary}")
             itemView.job_profile.setText("Profile : ${jobs.Profile}")
             itemView.job_lastdate.setText("Last Date : ${jobs.LastDate}")
+            Picasso.get().load(jobs.company_logo).into(itemView.company_icon)
+            if (jobs.backlogs>0){
+                itemView.ok_image.visibility = View.INVISIBLE
+            }
 
         }
     }

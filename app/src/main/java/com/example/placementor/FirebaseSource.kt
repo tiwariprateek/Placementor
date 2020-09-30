@@ -9,11 +9,14 @@ import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import kotlinx.coroutines.tasks.await
+import java.lang.Exception
 import java.net.URL
 
 class FirebaseSource {
@@ -36,18 +39,19 @@ class FirebaseSource {
 
 
 
-
+//    suspend fun loginWithCoroutines(email:String,password:String):AuthResult?{
+//        return try {
+//            val data = firebaseAuth.signInWithEmailAndPassword(email,password)
+//                .await()
+//            data
+//        } catch (e:Exception){
+//            null
+//        }
+//
+//    }
 
     fun login(email:String,password:String) =
         firebaseAuth.signInWithEmailAndPassword(email,password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful){
-                    Log.d("ViewModel","Success !!")
-                }
-                else{
-                    Log.d("ViewModel","Failure !!${task.exception}")
-                }
-            }
 
     fun signUp(email: String,password:String)=
         firebaseAuth.createUserWithEmailAndPassword(email,password)

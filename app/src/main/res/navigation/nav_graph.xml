@@ -103,6 +103,9 @@
         <argument
             android:name="selectedJob"
             app:argType="com.example.placementor.jobs.Jobs" />
+        <action
+            android:id="@+id/action_jobDetails_to_jobApplyFragment"
+            app:destination="@id/jobApplyFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -115,5 +118,15 @@
         <action
             android:id="@+id/action_splashFragment_to_studentDashboardFragment2"
             app:destination="@id/studentDashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/jobApplyFragment"
+        android:name="com.example.placementor.jobs.JobApplyFragment"
+        android:label="fragment_job_apply"
+        tools:layout="@layout/fragment_job_apply" >
+        <argument
+            android:name="job_link"
+            app:argType="string"
+            android:defaultValue=" " />
     </fragment>
 </navigation>

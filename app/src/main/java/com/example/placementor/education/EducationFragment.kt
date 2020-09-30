@@ -82,6 +82,4 @@ class EducationFragment : Fragment() {
         }
         findNavController().navigate(R.id.action_educationFragment_to_uploadFragment,null,options)
     }
-
-
 }
